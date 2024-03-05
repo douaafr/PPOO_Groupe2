@@ -24,5 +24,13 @@ public class Compte {
     public void createAccount() {
         // TODO implement here
     }
-
+    /**
+     * 
+     */
+    public void signIn() {
+        // TODO implement here
+    }
+    /**
+     * 
+     */
 }
