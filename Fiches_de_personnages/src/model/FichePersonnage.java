@@ -1,5 +1,4 @@
-package model;
-
+package  model;
 import java.util.*;
 
 /**
@@ -17,6 +16,18 @@ public class FichePersonnage {
      * 
      */
     public String name;
+
+
+
+    /**
+     * 
+     */
+    public Set<Conteneur> listContainers;
+
+    /**
+     * 
+     */
+    public Portrait portrait;
 
     /**
      * 

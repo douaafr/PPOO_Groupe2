@@ -1,5 +1,4 @@
 package model;
-
 import java.util.*;
 
 /**
@@ -22,6 +21,7 @@ public class StringItem {
      * 
      */
     public String field;
+
 
     /**
      * 

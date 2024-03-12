@@ -1,5 +1,4 @@
 package model;
-
 import java.util.*;
 
 /**
@@ -17,6 +16,7 @@ public class Portrait {
      * 
      */
     public String path;
+
 
     /**
      * 

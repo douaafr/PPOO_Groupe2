@@ -1,5 +1,4 @@
 package model;
-
 import java.util.*;
 
 /**
@@ -32,6 +31,16 @@ public class Utilisateur {
      * 
      */
     public String password;
+
+    /**
+     * 
+     */
+    public Compte compte;
+
+    /**
+     * 
+     */
+    public Set<FichePersonnage> listFichesPersonnages;
 
     /**
      * 

@@ -1,5 +1,4 @@
 package model;
-
 import java.util.*;
 
 /**
@@ -17,6 +16,23 @@ public class Item {
      * 
      */
     public String name;
+
+
+
+    /**
+     * 
+     */
+    public Set<StringItem> listStringItem;
+
+    /**
+     * 
+     */
+    public Set<IntItem> listIntItem;
+
+    /**
+     * 
+     */
+    public Set<BooleanItem> listBooleanItem;
 
     /**
      * 

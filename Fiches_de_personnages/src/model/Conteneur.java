@@ -1,5 +1,4 @@
 package model;
-
 import java.util.*;
 
 /**
@@ -12,6 +11,22 @@ public class Conteneur {
      */
     public Conteneur() {
     }
+
+    /**
+     * 
+     */
+    public int posX;
+
+    /**
+     * 
+     */
+    public int posY;
+
+    /**
+     * 
+     */
+    public Set<Item> listItems;
+
 
     /**
      * 
