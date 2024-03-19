@@ -34,7 +34,7 @@ public class StringItem {
     public void setField(String field) {
         this.field = field;
     }
-
+ 
     /**
      * 
      */

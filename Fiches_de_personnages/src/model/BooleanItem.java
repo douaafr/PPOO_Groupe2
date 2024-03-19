@@ -9,7 +9,7 @@ public class BooleanItem {
 	public String name;
     public boolean field;
     
-    public BooleanItem(	) {
+    public BooleanItem(	) { 
     	
     }
     public BooleanItem(	String name, boolean field) {
