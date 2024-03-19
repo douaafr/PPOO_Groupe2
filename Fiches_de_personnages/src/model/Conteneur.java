@@ -2,7 +2,7 @@ package model;
 
 import java.util.*;
 
-public class Conteneur {
+public class Conteneur {	
 
     public int posX;
     public int posY;
@@ -38,6 +38,4 @@ public class Conteneur {
     public void deleteItem(int i) {
         listItems.remove(i);
     }
-    
-
 }

@@ -48,4 +48,5 @@ public class FichePersonnage {
     	c2.posX = tmpX;
     	c2.posY = tmpY;
     }
+    
 }

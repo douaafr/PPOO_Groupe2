@@ -45,4 +45,5 @@ public class Item {
     public void deleteBooleanSousItem(int i) {
     	listBooleanItem.remove(i);
     }
+    
 }
