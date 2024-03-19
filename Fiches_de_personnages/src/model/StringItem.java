@@ -1,4 +1,5 @@
 package model;
+
 import java.util.*;
 
 /**
@@ -6,56 +7,46 @@ import java.util.*;
  */
 public class StringItem {
 
-    /**
-     * Default constructor
-     */
-    public StringItem() {
+	 public String name;
+	 public String field;
+
+	 public StringItem() {
+	        
+	    }
+	 public StringItem(String name, String field) {
+	        this.name = name;
+	        this.field = field;
+	    }
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
      * 
      */
-    public String name;
-
-    /**
-     * 
-     */
-    public String field;
-
-
-    /**
-     * 
-     */
-    public void setName() {
-        // TODO implement here
+    public String getName() {
+        return name;
     }
 
     /**
      * 
      */
-    public void getName() {
-        // TODO implement here
+    public void setField(String field) {
+        this.field = field;
+    }
+ 
+    /**
+     * 
+     */
+    public String getField() {
+        return field;
     }
 
     /**
      * 
      */
-    public void setField() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void getField() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void changeName() {
-        // TODO implement here
+    public void changeName(String newName ) {
+        this.name = newName;
     }
 
 }

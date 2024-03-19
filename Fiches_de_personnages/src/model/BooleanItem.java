@@ -6,56 +6,53 @@ import java.util.*;
  */
 public class BooleanItem {
 
-    /**
-     * Default constructor
-     */
-    public BooleanItem() {
-    }
-
-    /**
-     * 
-     */
-    public String name;
-
-    /**
-     * 
-     */
+	public String name;
     public boolean field;
-
+    
+    public BooleanItem(	) { 
+    	
+    }
+    public BooleanItem(	String name, boolean field) {
+    	this.name = name;
+    	this.field = field;
+    }
+    
 
     /**
      * 
      */
-    public void setName() {
-        // TODO implement here
+    
+
+
+    
+    public void setName(String name) {
+        this.name =name;
     }
 
     /**
      * 
      */
-    public void getName() {
-        // TODO implement here
+    public String getName() {
+        return name;
     }
 
     /**
      * 
      */
-    public void setField() {
-        // TODO implement here
+    public void setField(boolean field) {
+        this.field = field;
     }
 
     /**
      * 
      */
-    public void getField() {
-        // TODO implement here
+    public Boolean getField() {
+        return field;
     }
 
-    /**
-     * 
-     */
-    public void changeName() {
-        // TODO implement here
+    
+    public void changeName(String newName) {
+      this.name = newName;
     }
 
 }
