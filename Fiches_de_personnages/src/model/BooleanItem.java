@@ -4,7 +4,7 @@ import java.util.*;
 /**
  * 
  */
-public class BooleanItem extends Item {
+public class BooleanItem {
 
     /**
      * Default constructor
