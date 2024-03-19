@@ -12,38 +12,14 @@ public class Utilisateur implements Serializable{
      */
     public Utilisateur() {
     }
-
-    /**
-     * 
-     */
-    public String firstName;
     
-    public void setFirstName(String prenom) {
-        firstName = prenom;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
+    public String password;
+    public String id_account;
 
     /**
      * 
      */
-   
-    public String lastName;
 
-    public void setLastName(String nom) {
-       lastName = nom;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * 
-     */
-   
     public Compte compte;
     public void setCompte (Compte compte_c) {
     	compte = compte_c;
@@ -52,6 +28,39 @@ public class Utilisateur implements Serializable{
     /**
      * 
      */
+    
+   
+    
+    public void setId(String id) {
+    	id_account = id;
+    }
+    public String getId(){
+    	return id_account;
+    }
+
+    
+    public void setPwd(String mdp) {
+        password = mdp;
+    }
+    public String getPwd() {
+        return password;
+        
+    }
+    public void changePwd(String oldPwd, String newPwd) {
+    	if (mdpCorrect(oldPwd)) {
+    		oldPwd = newPwd;
+    	}
+    }
+    
+    public boolean mdpCorrect(String mdp) {
+    	if (mdp.equals(password)) {
+    		return true;
+    	}else {
+    		return false;
+    	}
+    }
+
+    
     public Vector<FichePersonnage> listFichesPersonnages = new Vector <FichePersonnage>();
 
 
@@ -67,9 +76,10 @@ public class Utilisateur implements Serializable{
     	return listFichesPersonnages.get(i);
     }
     
-    public Utilisateur(String prenom, String nom) {
-    	firstName = prenom;
-    	lastName = nom;
+    public Utilisateur(String identifiant, String mdp ) {
+    	id_account = identifiant;
+    	password = mdp;
+  
     }
 
 }
