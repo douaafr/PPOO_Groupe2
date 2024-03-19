@@ -1,72 +1,49 @@
 package model;
+
 import java.util.*;
 
-/**
- * 
- */
 public class Item {
 
-    /**
-     * Default constructor
-     */
-    public Item() {
-    }
-
-    /**
-     * 
-     */
     public String name;
 
+    public Item(String n) {
+    	this.name = n;
+    }
+    
+    public Vector<StringItem> listStringItem;
+    public Vector<IntItem> listIntItem;
+    public Vector<BooleanItem> listBooleanItem;
 
-
-    /**
-     * 
-     */
-    public Set<StringItem> listStringItem;
-
-    /**
-     * 
-     */
-    public Set<IntItem> listIntItem;
-
-    /**
-     * 
-     */
-    public Set<BooleanItem> listBooleanItem;
-
-    /**
-     * 
-     */
-    public void setName() {
-        // TODO implement here
+    public void setName(String name) {
+        this.name = name;
     }
 
-    /**
-     * 
-     */
-    public void getName() {
-        // TODO implement here
+    public String getName() {
+        return this.name;
     }
 
-    /**
-     * 
-     */
-    public void addSousItem() {
-        // TODO implement here
+    public void addStringSousItem(StringItem st) {
+        listStringItem.add(st);
+    }
+    
+    public void addIntSousItem(IntItem ii) {
+        listIntItem.add(ii);
+    }
+    
+    public void addBooleanSousItem(BooleanItem bi) {
+        listBooleanItem.add(bi);
     }
 
-    /**
-     * 
-     */
-    public void deleteSousItem() {
-        // TODO implement here
+    public void deleteStringSousItem(int i) {
+        listStringItem.remove(i);
     }
-
-    /**
-     * 
-     */
-    public void changeName() {
-        // TODO implement here
+    
+    public void deleteIntSousItem(int i) {
+        listIntItem.remove(i);
     }
-
+    
+    public void deleteBooleanSousItem(int i) {
+    	listBooleanItem.remove(i);
+    }
+    
 }
