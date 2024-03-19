@@ -1,10 +1,11 @@
 package model;
 import java.util.*;
+import java.io.Serializable;
 
 /**
  * 
  */
-public class Utilisateur {
+public class Utilisateur implements Serializable{
 
     /**
      * Default constructor
@@ -15,94 +16,60 @@ public class Utilisateur {
     /**
      * 
      */
-    public String id_user;
-
-    /**
-     * 
-     */
     public String firstName;
+    
+    public void setFirstName(String prenom) {
+        firstName = prenom;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
 
     /**
      * 
      */
+   
     public String lastName;
 
-    /**
-     * 
-     */
-    public String password;
+    public void setLastName(String nom) {
+       lastName = nom;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
 
     /**
      * 
      */
+   
     public Compte compte;
-
-    /**
-     * 
-     */
-    public Set<FichePersonnage> listFichesPersonnages;
-
-    /**
-     * 
-     */
-    public void setId() {
-        // TODO implement here
+    public void setCompte (Compte compte_c) {
+    	compte = compte_c;
     }
 
     /**
      * 
      */
-    public void getId() {
-        // TODO implement here
-    }
+    public Vector<FichePersonnage> listFichesPersonnages = new Vector <FichePersonnage>();
 
-    /**
-     * 
-     */
-    public void setFirstName() {
-        // TODO implement here
-    }
 
-    /**
-     * 
-     */
-    public void getLastName() {
-        // TODO implement here
+    public void addFichePersonnage(FichePersonnage fichePersonnage) {
+    	listFichesPersonnages.add(fichePersonnage);
     }
-
-    /**
-     * 
-     */
-    public void setPwd() {
-        // TODO implement here
+    
+    public List<FichePersonnage> getFichesPersonnages() {
+    	return listFichesPersonnages;
     }
-
-    /**
-     * 
-     */
-    public void getPwd() {
-        // TODO implement here
+    
+    public FichePersonnage getFichePersonnage(int i) {
+    	return listFichesPersonnages.get(i);
     }
-
-    /**
-     * 
-     */
-    public void changePwd() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void addFichePersonnage() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void getFichesPersonnages() {
-        // TODO implement here
+    
+    public Utilisateur(String prenom, String nom) {
+    	firstName = prenom;
+    	lastName = nom;
     }
 
 }
