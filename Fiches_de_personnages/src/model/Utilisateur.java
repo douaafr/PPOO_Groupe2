@@ -1,5 +1,6 @@
 package model;
 import java.util.*;
+import org.mindrot.jbcrypt.BCrypt;
 import java.io.Serializable;
 
 /**
@@ -13,8 +14,8 @@ public class Utilisateur implements Serializable{
     public Utilisateur() {
     }
     
-    public String password;
-    public String id_account;
+    private String password;
+    private String id_account;
 
     /**
      * 
@@ -40,7 +41,7 @@ public class Utilisateur implements Serializable{
 
     
     public void setPwd(String mdp) {
-        password = mdp;
+        password = hashPassword(mdp);
     }
     public String getPwd() {
         return password;
@@ -48,16 +49,12 @@ public class Utilisateur implements Serializable{
     }
     public void changePwd(String oldPwd, String newPwd) {
     	if (mdpCorrect(oldPwd)) {
-    		oldPwd = newPwd;
+    		this.password = hashPassword(newPwd);
     	}
     }
     
     public boolean mdpCorrect(String mdp) {
-    	if (mdp.equals(password)) {
-    		return true;
-    	}else {
-    		return false;
-    	}
+        return BCrypt.checkpw(mdp, this.password);
     }
 
     
@@ -76,9 +73,14 @@ public class Utilisateur implements Serializable{
     	return listFichesPersonnages.get(i);
     }
     
+    
+    private String hashPassword(String plainTextPassword) {
+        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+    }
+    
     public Utilisateur(String identifiant, String mdp ) {
     	id_account = identifiant;
-    	password = mdp;
+    	password = hashPassword(mdp);
   
     }
 
