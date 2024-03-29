@@ -18,11 +18,7 @@ public class Compte implements Serializable{
      */
    
     public Utilisateur user;
-    public void setUser (Utilisateur user_c) {
-    	user = user_c;
-    }
-
-    /**
+     /**
      * 
      */
     public void createAccount() {
