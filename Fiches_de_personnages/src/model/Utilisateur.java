@@ -25,11 +25,6 @@ public class Utilisateur implements Serializable{
     public void setCompte (Compte compte_c) {
     	compte = compte_c;
     }
-
-    /**
-     * 
-     */
-    
    
     
     public void setId(String id) {

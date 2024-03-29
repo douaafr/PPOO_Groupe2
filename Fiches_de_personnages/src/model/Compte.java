@@ -12,12 +12,7 @@ public class Compte implements Serializable{
     public Compte() {
     }
 
-    /**
-     * 
-     */
-     /**
-     * 
-     */
+    
     public Utilisateur utilisateur;
     public Vector<Utilisateur> listUtilisateurs = new Vector <Utilisateur>();
     
