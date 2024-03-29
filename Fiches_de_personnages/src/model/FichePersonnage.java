@@ -28,7 +28,7 @@ public class FichePersonnage {
         listContainers.add(c);
     }
 
-    public List<Conteneur> getContainers() {
+    public Vector<Conteneur> getContainers() {
         return this.listContainers;
     }
     
