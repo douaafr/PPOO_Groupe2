@@ -6,7 +6,13 @@ public class Conteneur {
 
     public int posX;
     public int posY;
-    public Vector<Item> listItems;
+    public Vector<Item> listItems = new Vector<Item>();
+    
+    
+    public Conteneur(int x, int y) {
+    	this.posX = x;
+    	this.posY = y;
+    }
     
     public Conteneur(int x, int y, Vector<Item> li) {
     	this.posX = x;
@@ -25,6 +31,10 @@ public class Conteneur {
     
     public int getPosY() {
     	return this.posY;
+    }
+    
+    public Vector<Item> getItems() {
+    	return listItems;
     }
     
     public Item getItem(int i) {

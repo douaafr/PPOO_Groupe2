@@ -7,7 +7,7 @@ public class FichePersonnage implements Serializable {
 
     public String name;
     public int idFiche;
-    public Vector<Conteneur> listContainers;
+    public Vector<Conteneur> listContainers = new Vector<Conteneur>();
     public Portrait portrait;
 
     public FichePersonnage(Vector<Conteneur> lc) {
@@ -41,6 +41,14 @@ public class FichePersonnage implements Serializable {
     
     public int getIdFiche() {
     	return idFiche;
+    }
+    
+    public void setPortrait(Portrait p) {
+    	this.portrait = p;
+    }
+    
+    public Portrait getPortrait() {
+    	return this.portrait;
     }
 
     public void addContainer(Conteneur c) {

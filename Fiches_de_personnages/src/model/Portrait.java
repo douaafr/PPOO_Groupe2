@@ -9,7 +9,9 @@ import java.nio.file.StandardCopyOption;
 
 public class Portrait {
     
-    private String path;
+    public String path;
+    public int posX;
+    public int posY;
 
     public Portrait() {
     }
@@ -20,6 +22,19 @@ public class Portrait {
 
     public String getPath() {
         return path;
+    }
+    
+    public void setPos(int x, int y) {
+    	this.posX = x;
+    	this.posY = y;
+    }
+    
+    public int getPosX() {
+    	return this.posX;
+    }
+    
+    public int getPosY() {
+    	return this.posY;
     }
 
     public void addPhoto() {

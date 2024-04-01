@@ -10,9 +10,9 @@ public class Item {
     	this.name = n;
     }
     
-    public Vector<StringItem> listStringItem;
-    public Vector<IntItem> listIntItem;
-    public Vector<BooleanItem> listBooleanItem;
+    public Vector<StringItem> listStringItem = new Vector<StringItem>();;
+    public Vector<IntItem> listIntItem = new Vector<IntItem>();
+    public Vector<BooleanItem> listBooleanItem = new Vector<BooleanItem>();
 
     public void setName(String name) {
         this.name = name;
@@ -20,6 +20,18 @@ public class Item {
 
     public String getName() {
         return this.name;
+    }
+    
+    public Vector<StringItem> getStringItems() {
+    	return this.listStringItem;
+    }
+    
+    public Vector<IntItem> getIntItems() {
+    	return this.listIntItem;
+    }
+    
+    public Vector<BooleanItem> getBooleanItems() {
+    	return this.listBooleanItem;
     }
 
     public void addStringSousItem(StringItem st) {
