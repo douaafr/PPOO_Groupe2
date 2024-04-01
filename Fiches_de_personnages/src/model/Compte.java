@@ -1,6 +1,6 @@
 package model;
 import java.util.*;
-import java.io.Serializable;
+import java.io.*;
 /**
  * 
  */
@@ -10,6 +10,7 @@ public class Compte implements Serializable{
      * Default constructor
      */
     public Compte() {
+    	chargerComptes();
     }
 
     
@@ -19,6 +20,7 @@ public class Compte implements Serializable{
     public void createAccount(String identifiant, String motDePasse) {
     	Utilisateur nouvelUtilisateur = new Utilisateur (identifiant, motDePasse);
     	listUtilisateurs.add(nouvelUtilisateur);
+    	sauvegarderComptes();
     	
     }
 
@@ -50,17 +52,48 @@ public class Compte implements Serializable{
        	return found;
     } */
     
-    public boolean signIn(String identifiant, String motDePasse) {
-    	Utilisateur utilisateur = chercherUtilisateur(identifiant);
-    	return utilisateur != null && utilisateur.mdpCorrect(motDePasse);
+    public Utilisateur signIn(String identifiant, String motDePasse) {
+        Utilisateur utilisateur = chercherUtilisateur(identifiant);
+        if (utilisateur != null && utilisateur.mdpCorrect(motDePasse)) {
+            utilisateur.chargerFichesPersonnages(); 
+            return utilisateur;
+        }
+        return null;
     }
 
     /**
      * 
      */
-    public void signOut() {
-        
+    public void signOut(Utilisateur utilisateur) {
+    	if (utilisateur != null) {
+            utilisateur.sauvegarderFichesPersonnages();
+            sauvegarderComptes(); 
+        }
     }
+    /**
+     * 
+     */
+    
+ // Méthode pour sérialiser la liste des utilisateurs
+    private void sauvegarderComptes() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("comptes.ser"))) {
+            oos.writeObject(listUtilisateurs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Méthode pour désérialiser la liste des utilisateurs
+    private void chargerComptes() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("comptes.ser"))) {
+            listUtilisateurs = (Vector<Utilisateur>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            System.out.println("Fichier de comptes non trouvé. Initialisation d'une nouvelle liste.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * 
      */

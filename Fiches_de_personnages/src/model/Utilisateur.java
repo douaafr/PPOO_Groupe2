@@ -1,7 +1,8 @@
 package model;
 import java.util.*;
 import org.mindrot.jbcrypt.BCrypt;
-import java.io.Serializable;
+import java.io.*;
+
 
 /**
  * 
@@ -16,10 +17,41 @@ public class Utilisateur implements Serializable{
     
     private String password;
     private String id_account;
+    private transient File ficheFile; // Transient pour exclure de la sérialisation
 
     /**
      * 
      */
+    
+    public Utilisateur(String identifiant, String mdp) {
+        this.id_account = identifiant;
+        this.password = hashPassword(mdp);
+        this.ficheFile = new File("fiches_" + id_account + ".ser"); // Fichier unique par utilisateur
+        chargerFichesPersonnages(); // Charger les fiches à la création
+    }
+    /**
+     * 
+     */
+    
+ // Sérialise la liste des fiches de personnages
+    public void sauvegarderFichesPersonnages() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ficheFile))) {
+            oos.writeObject(listFichesPersonnages);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Désérialise la liste des fiches de personnages
+    public void chargerFichesPersonnages() {
+        if (ficheFile.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ficheFile))) {
+                listFichesPersonnages = (Vector<FichePersonnage>) ois.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public Compte compte;
     public void setCompte (Compte compte_c) {
@@ -56,16 +88,31 @@ public class Utilisateur implements Serializable{
     public Vector<FichePersonnage> listFichesPersonnages = new Vector <FichePersonnage>();
 
 
-    public void addFichePersonnage(FichePersonnage fichePersonnage) {
-    	listFichesPersonnages.add(fichePersonnage);
+    public void addFichePersonnage(String nameFiche) {
+        FichePersonnage fiche = new FichePersonnage(nameFiche, listFichesPersonnages.size() + 1);
+        listFichesPersonnages.add(fiche);
+        sauvegarderFichesPersonnages();
     }
     
-    public List<FichePersonnage> getFichesPersonnages() {
-    	return listFichesPersonnages;
+    public Vector<FichePersonnage> getFichesPersonnages() {
+    	return new Vector<>(listFichesPersonnages);	
     }
     
-    public FichePersonnage getFichePersonnage(int i) {
-    	return listFichesPersonnages.get(i);
+    public FichePersonnage getFicheById(int id_fiche) {
+    	for (FichePersonnage fiche : listFichesPersonnages) {
+    		if (fiche.getIdFiche() == id_fiche) {
+				return fiche;
+			}
+    	}
+    	return null;
+    }
+    
+    public boolean deleteFiche(int idFiche) {
+        boolean removed = listFichesPersonnages.removeIf(fiche -> fiche.getIdFiche() == idFiche);
+        if (removed) {
+            sauvegarderFichesPersonnages();
+        }
+        return removed;
     }
     
     
@@ -73,10 +120,5 @@ public class Utilisateur implements Serializable{
         return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
     }
     
-    public Utilisateur(String identifiant, String mdp ) {
-    	id_account = identifiant;
-    	password = hashPassword(mdp);
-  
-    }
 
 }

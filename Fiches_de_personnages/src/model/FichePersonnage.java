@@ -1,15 +1,26 @@
 package  model;
 
 import java.util.*;
+import java.io.Serializable;
 
-public class FichePersonnage {
+public class FichePersonnage implements Serializable {
 
     public String name;
+    public int idFiche;
     public Vector<Conteneur> listContainers;
     public Portrait portrait;
 
     public FichePersonnage(Vector<Conteneur> lc) {
     	listContainers = lc;
+    }
+    
+    public FichePersonnage(String name, int idFiche) {
+    	this.name= name;
+    	this.idFiche= idFiche;
+    }
+    
+    public FichePersonnage(String name) {
+    	this.name =name;
     }
     
     public void setName(String n) {
@@ -22,6 +33,14 @@ public class FichePersonnage {
 
     public void changeName(String n) {
         this.name = n;
+    }
+    
+    public void setIdFiche(int id) {
+    	this.idFiche = id;
+    }
+    
+    public int getIdFiche() {
+    	return idFiche;
     }
 
     public void addContainer(Conteneur c) {
