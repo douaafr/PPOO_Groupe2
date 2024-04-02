@@ -76,4 +76,12 @@ public class FichePersonnage implements Serializable {
     	c2.posY = tmpY;
     }
     
+    public void changeLocation(Portrait p, Conteneur c) {
+    	int tmpX = p.posX;
+    	int tmpY = p.posY;
+    	p.posX = c.posX;
+    	p.posY = c.posY;
+    	c.posX = tmpX;
+    	c.posY = tmpY;
+    }
 }
