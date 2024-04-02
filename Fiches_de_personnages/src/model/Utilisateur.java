@@ -12,12 +12,14 @@ public class Utilisateur implements Serializable{
     /**
      * Default constructor
      */
+	
+	private static final long serialVersionUID = 1L;
     public Utilisateur() {
     }
     
     private String password;
     private String id_account;
-    private transient File ficheFile; // Transient pour exclure de la sérialisation
+    private File ficheFile; // Transient pour exclure de la sérialisation
 
     /**
      * 
@@ -27,7 +29,9 @@ public class Utilisateur implements Serializable{
         this.id_account = identifiant;
         this.password = hashPassword(mdp);
         this.ficheFile = new File("fiches_" + id_account + ".ser"); // Fichier unique par utilisateur
-        chargerFichesPersonnages(); // Charger les fiches à la création
+        if (this.ficheFile.exists()) {
+            chargerFichesPersonnages(); // Charger les fiches à la création
+        }
     }
     /**
      * 
@@ -75,9 +79,12 @@ public class Utilisateur implements Serializable{
         
     }
     public void changePwd(String oldPwd, String newPwd) {
-    	if (mdpCorrect(oldPwd)) {
-    		this.password = hashPassword(newPwd);
-    	}
+        if (mdpCorrect(oldPwd)) { 
+            this.password = hashPassword(newPwd);
+            compte.sauvegarderComptes();
+        } else {
+            throw new IllegalArgumentException("L'ancien mot de passe est incorrect.");
+        }
     }
     
     public boolean mdpCorrect(String mdp) {

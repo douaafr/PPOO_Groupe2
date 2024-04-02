@@ -9,6 +9,8 @@ public class Compte implements Serializable{
     /**
      * Default constructor
      */
+	
+	private static final long serialVersionUID = 1L;
     public Compte() {
     	chargerComptes();
     }
@@ -17,12 +19,18 @@ public class Compte implements Serializable{
     public Utilisateur utilisateur;
     public Vector<Utilisateur> listUtilisateurs = new Vector <Utilisateur>();
     
-    public void createAccount(String identifiant, String motDePasse) {
-    	Utilisateur nouvelUtilisateur = new Utilisateur (identifiant, motDePasse);
-    	listUtilisateurs.add(nouvelUtilisateur);
-    	sauvegarderComptes();
-    	
+    public void createAccount(String identifiant, String motDePasse) throws Exception {
+        Utilisateur utilisateurExistant = chercherUtilisateur(identifiant);
+
+        if (utilisateurExistant == null) {
+            Utilisateur nouvelUtilisateur = new Utilisateur(identifiant, motDePasse);
+            listUtilisateurs.add(nouvelUtilisateur);
+            sauvegarderComptes();
+        } else {
+            throw new Exception("Un utilisateur avec cet identifiant existe déjà.");
+        }
     }
+
 
     /**
      * 
@@ -75,7 +83,7 @@ public class Compte implements Serializable{
      */
     
  // Méthode pour sérialiser la liste des utilisateurs
-    private void sauvegarderComptes() {
+    public void sauvegarderComptes() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("comptes.ser"))) {
             oos.writeObject(listUtilisateurs);
         } catch (IOException e) {
@@ -84,7 +92,7 @@ public class Compte implements Serializable{
     }
 
     // Méthode pour désérialiser la liste des utilisateurs
-    private void chargerComptes() {
+    public void chargerComptes() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("comptes.ser"))) {
             listUtilisateurs = (Vector<Utilisateur>) ois.readObject();
         } catch (FileNotFoundException e) {
