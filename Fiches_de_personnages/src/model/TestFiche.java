@@ -76,5 +76,13 @@ public class TestFiche {
                 }
             }
         }
+        System.out.println("Changement de position entre 2 conteneurs :");
+        Conteneur cont1 = fiche1.getContainer(0);
+        Conteneur cont2 = fiche1.getContainer(1);
+        System.out.println("Conteneur 1 : posX=" + cont1.getPosX() + " posY=" + cont1.getPosY());
+        System.out.println("Conteneur 2 : posX=" + cont2.getPosX() + " posY=" + cont2.getPosY());
+        fiche1.changeLocation(cont1, cont2);
+        System.out.println("Conteneur 1 : posX=" + cont1.getPosX() + " posY=" + cont1.getPosY());
+        System.out.println("Conteneur 2 : posX=" + cont2.getPosX() + " posY=" + cont2.getPosY());
 	}
 }
