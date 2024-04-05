@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2024-02-12" view-index="0" gantt-divider-location="521" resource-divider-location="300" version="3.3.3305" locale="fr_FR">
+    <description/>
+    <view zooming-state="default:7" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="289" order="0"/>
+        <field id="tpd4" name="Date de début" width="108" order="1"/>
+        <field id="tpd5" name="Date de fin" width="108" order="2"/>
+        <field id="tpd15" name="Notes" width="20" order="3"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+        <option id="color.recent"><![CDATA[#009999]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="210" order="0"/>
+        <field id="1" name="Rôle par défaut" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="5" uid="176529409d654757a3504abf91f094e4" name="Création du git" meeting="false" start="2024-02-20" duration="1" complete="100" expand="true">
+            <notes><![CDATA[Plusieurs problèmes rencontrés :
+- Quand Alyne a créer le git, le dossier source n'apparaissait pas pour Idel et Douaa. On a donc dû le supprimer
+- Douaa a créer un nouveau git mais il y eu l'apparition de deux branches (main et master) => on utilise la branche master
+
+]]></notes>
+        </task>
+        <task id="3" uid="a8a6cd1f91054c0199c786106bda388c" name="Conception diagramme UML" meeting="false" start="2024-02-20" duration="10" complete="100" expand="true">
+            <notes><![CDATA[Le diagramme a été commencé le 20/02/2024 par Alyne puis a été modifié au fur et à mesure selon les besoins. On l'a terminé le 04/03/2024.]]></notes>
+            <depend id="24" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="24" uid="5511c365b6244e1fa9111195f9095cf1" name="Validation du diagramme UML" meeting="false" start="2024-03-05" duration="1" complete="100" expand="true">
+            <notes><![CDATA[Le diagramme UML a été validé par le groupe et le prof.
+Le code a donc pû être généré.]]></notes>
+            <depend id="4" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="4" uid="c8f408dac5e14ee3bd99ffeaff3306d8" name="Implémentation" color="#8cb6ce" meeting="false" start="2024-03-12" duration="40" complete="30" expand="true">
+            <notes><![CDATA[Quand Douaa a réalisé le commit avec le code généré à partir du diagramme UML le 05/03/2024, il n'apparaissait pas pour  Idel et Alyne.
+Ils ont pû y accéder le 12/03/2024.
+
+Le diagramme de gantt qui a été mis sur github le 20/02/2024 par Alyne a disparu on a du le remmetre à nouveau le 12/03/2024.
+
+La collection String n'était pas détectée sur eclipse pour Idel et Alyne => la librairie n'était pas renseignée.
+
+]]></notes>
+            <depend id="7" type="2" difference="0" hardness="Strong"/>
+            <task id="9" uid="b30abed7e35f4ceabd6ef89b571e3c40" name="Modèle" color="#009999" meeting="false" project="true" start="2024-03-12" duration="16" complete="94" thirdDate="2024-03-12" thirdDate-constraint="0" expand="true">
+                <depend id="11" type="2" difference="0" hardness="Strong"/>
+                <task id="14" uid="d27db8e367cf4a33b4523df5bd69eea9" name="Classe Compte" meeting="false" start="2024-03-12" duration="14" complete="80" thirdDate="2024-03-12" thirdDate-constraint="0" expand="true"/>
+                <task id="15" uid="221cca375e8e40fdaee0653ad70f8710" name="Classe Utilisateur" meeting="false" start="2024-03-12" duration="14" complete="85" thirdDate="2024-03-12" thirdDate-constraint="0" expand="true">
+                    <notes><![CDATA[29/03 : cryptage des données de l'utilisateur (lors de la création du mdp/ changement du mdp/ vérification du mdp)
+]]></notes>
+                </task>
+                <task id="16" uid="83e4a774b15946bf9edf5db9c1265b3c" name="Classe FichePersonnage" meeting="false" start="2024-03-12" duration="14" complete="90" thirdDate="2024-03-12" thirdDate-constraint="0" expand="true"/>
+                <task id="17" uid="29c48a08666f4ea8ab97472dd448838a" name="Classe Conteneur" meeting="false" start="2024-03-12" duration="14" complete="100" thirdDate="2024-03-12" thirdDate-constraint="0" expand="true"/>
+                <task id="20" uid="f7a327dd836c4502822faa8909cbcaff" name="Classe Portrait" meeting="false" start="2024-03-12" duration="14" complete="100" thirdDate="2024-03-12" thirdDate-constraint="0" expand="true"/>
+                <task id="18" uid="af66044533384feba1c91672d2910cb5" name="Classe Item" meeting="false" start="2024-03-12" duration="14" complete="90" thirdDate="2024-03-12" thirdDate-constraint="0" expand="true"/>
+                <task id="21" uid="ce97bf6393d0437a8fb68641397d3321" name="Classe StringItem" meeting="false" start="2024-03-12" duration="14" complete="100" thirdDate="2024-03-12" thirdDate-constraint="0" expand="true"/>
+                <task id="22" uid="c97c37a357e74601ae9e59106e954941" name="Classe IntItem" meeting="false" start="2024-03-12" duration="14" complete="100" thirdDate="2024-03-12" thirdDate-constraint="0" expand="true"/>
+                <task id="23" uid="672e01ff6f7442119b4eef0790a1f41a" name="Classe BooleanItem" meeting="false" start="2024-03-12" duration="14" complete="100" thirdDate="2024-03-12" thirdDate-constraint="0" expand="true"/>
+                <task id="25" uid="943bfa1662a64ed6933c5d6063473bfc" name="test du modèle" meeting="false" start="2024-03-29" duration="3" complete="100" thirdDate="2024-03-06" thirdDate-constraint="0" expand="true">
+                    <notes><![CDATA[- 29/03 : test de la classe portrait : semble fonctionnelle
+]]></notes>
+                </task>
+            </task>
+            <task id="11" uid="e65d7b475b364271bf2f339456cc0565" name="Interface graphique" color="#009999" meeting="false" start="2024-04-03" duration="24" complete="2" thirdDate="2024-04-01" thirdDate-constraint="0" expand="true">
+                <notes><![CDATA[02/04  : Idel a eu des soucis avec le pull, il a du supprimer le projet en local et l'importer à nouveau
+Validation finale du modèle
+05/04 : définion des clases de l'interface, répartition des tâches, prototypage, commencement des 3 premières vues ]]></notes>
+                <task id="12" uid="ca63bfd53a534d4d8b76f2aaba411e92" name="Vue" meeting="false" start="2024-04-03" duration="24" complete="10" expand="false">
+                    <task id="26" uid="2612df29fb884bcdae7c2a9b7e9f8e13" name="Connexion" meeting="false" start="2024-04-03" duration="24" complete="10" expand="true"/>
+                    <task id="27" uid="45c62803555340a684d5d9798b6495cb" name="Création compte" meeting="false" start="2024-04-03" duration="24" complete="10" expand="true"/>
+                    <task id="29" uid="079fa3296e6243ec942f396653a026a5" name="Page d'acceuil" meeting="false" start="2024-04-03" duration="24" complete="10" expand="true"/>
+                    <task id="30" uid="f520c109b2414a38965d71849bdaa21a" name="Page de modification du mdp" meeting="false" start="2024-04-03" duration="24" complete="0" expand="true"/>
+                    <task id="28" uid="80e317f3081d4b179411ba6e06b32e2a" name="Création fiche personnage" meeting="false" start="2024-04-03" duration="24" complete="0" expand="true"/>
+                    <task id="31" uid="091615ee6fe5436e9f996ccc9df8dea4" name="Page consultation et modif de fiche" meeting="false" start="2024-04-03" duration="24" complete="0" expand="true"/>
+                </task>
+                <task id="13" uid="d045c3534bd544148a337641e1dc6e8b" name="Contrôleur" meeting="false" start="2024-04-03" duration="24" complete="0" expand="false">
+                    <task id="32" uid="cd2e04ae6c3d4384b6262929e27140d1" name="Connexion" meeting="false" start="2024-04-03" duration="24" complete="0" expand="true"/>
+                    <task id="33" uid="ba2f539b4d994b17bdaf5822e2a1292c" name="Création compte" meeting="false" start="2024-04-03" duration="24" complete="0" expand="true"/>
+                    <task id="34" uid="f4773f59a0b44506ac727ea730e788ae" name="Page d'acceuil" meeting="false" start="2024-04-03" duration="24" complete="0" expand="true"/>
+                    <task id="35" uid="f7f79a1060b046889432cac9a0c6a980" name="Modification du mdp" meeting="false" start="2024-04-03" duration="24" complete="0" expand="true"/>
+                    <task id="36" uid="f41faffcd7e04c1b910c5904900085ac" name="Création fiche personnage" meeting="false" start="2024-04-03" duration="24" complete="0" expand="true"/>
+                    <task id="37" uid="b5460a14b863430a883e26736fb508ac" name="Consultation et modif de fiche" meeting="false" start="2024-04-03" duration="24" complete="0" expand="true"/>
+                </task>
+            </task>
+        </task>
+        <task id="7" uid="cfc5736c550d47b093b6d11cccbb6012" name="Réalisation du support de présentation" meeting="false" start="2024-05-07" duration="5" complete="0" expand="true">
+            <depend id="8" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="8" uid="08471b8b064b48a7bf4413cf60710ee5" name="Préparation à l'oral" meeting="false" start="2024-05-14" duration="5" complete="0" expand="true">
+            <depend id="6" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="6" uid="54c8b24281014127b1ec7a754c22b230" name="Présentation" meeting="true" start="2024-05-21" duration="0" complete="0" expand="true"/>
+    </tasks>
+    <resources>
+        <resource id="0" name="Alyne" function="Default:0" contacts="" phone=""/>
+        <resource id="1" name="Douaa" function="Default:0" contacts="" phone=""/>
+        <resource id="2" name="Idel" function="Default:0" contacts="" phone=""/>
+    </resources>
+    <allocations>
+        <allocation task-id="3" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="5" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="5" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="7" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="8" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="16" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="17" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="18" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="24" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="6" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="25" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="26" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="32" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="36" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="37" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="28" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="31" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="3" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="5" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="5" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="7" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="8" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="14" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="15" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="20" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="24" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="6" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="25" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="27" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="33" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="35" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="30" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="36" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="37" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="28" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="31" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="3" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="5" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="5" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="7" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="8" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="21" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="22" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="23" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="24" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="6" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="25" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="34" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="29" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="36" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="37" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="28" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="31" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+    </allocations>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
