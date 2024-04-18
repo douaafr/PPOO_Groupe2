@@ -5,7 +5,8 @@ import java.io.Serializable;
 
 public class FichePersonnage implements Serializable {
 
-    public String name;
+	private static final long serialVersionUID = 4032237744168435781L;
+	public String name;
     public int idFiche;
     public Vector<Conteneur> listContainers = new Vector<Conteneur>();
     public Portrait portrait;

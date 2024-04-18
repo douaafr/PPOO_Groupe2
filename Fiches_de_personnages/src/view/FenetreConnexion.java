@@ -6,12 +6,22 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import model.Compte;
+import controller.ControllerConnexion;
 
 public class FenetreConnexion extends JFrame {
 	
+	public Compte cpt;
 	BufferedImage backgroundImage;
+	JLabel bienvenueLabel = new JLabel("Bienvenue");
+	JTextField identifiantField = new JTextField(20);
+	JPasswordField motDePasseField = new JPasswordField(20);
+	JLabel identifiantLabel = new JLabel("Identifiant:");
+	JLabel motDePasseLabel = new JLabel("Mot de passe:");
+	JButton connexionBoutton = new JButton("Se connecter");
+	JButton creationCPTButton = new JButton("Créer un compte");
+	JPanel panelConnexion = new JPanel();
     
 	public FenetreConnexion() {
 		// Initialisation de la fenêtre
@@ -28,7 +38,7 @@ public class FenetreConnexion extends JFrame {
         
         // Création d'un panneau avec une image de fond
         JPanel contentPane = new JPanel() {
-            @Override
+			@Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 // Dessiner l'image en tant que fond et redimensionner si nécessaire
@@ -42,31 +52,22 @@ public class FenetreConnexion extends JFrame {
         Color medievalTextColor = new Color(255, 204, 153); // Couleur beige/marron clair
         Font medievalFont = new Font("Times New Roman", Font.BOLD, 20); // Style d'écriture médiéval
         
-        //Créer un label bienvenue
-        JLabel bienvenueLabel = new JLabel("Bienvenue");
+        // Personnalisation du label bienvenue
         bienvenueLabel.setForeground(medievalTextColor);
         bienvenueLabel.setFont(new Font("Times New Roman", Font.BOLD, 40));
 
-        // Créer les champs d'identifiant et de mot de passe
-        JTextField identifiantField = new JTextField(20);
-        JPasswordField motDePasseField = new JPasswordField(20);
+        // Personnalisation des champs d'identifiant et de mot de passe
+        identifiantField.setFont(new Font("Garamond", Font.PLAIN, 16));
+        motDePasseField.setFont(new Font("Garamond", Font.PLAIN, 16));
 
-        // Créer les libellés pour les champs avec le style médiéval
-        JLabel identifiantLabel = new JLabel("Identifiant:");
+        // Personnalisation des libellés pour les champs avec le style médiéval
         identifiantLabel.setForeground(medievalTextColor);
         identifiantLabel.setFont(medievalFont);
 
-        JLabel motDePasseLabel = new JLabel("Mot de passe:");
         motDePasseLabel.setForeground(medievalTextColor);
         motDePasseLabel.setFont(medievalFont);
         
-        // Créer les boutons de connexion et de création de compte
-        JButton connexionBoutton = new JButton("Se connecter");
-        connexionBoutton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
-        JButton creationCPTButton = new JButton("Créer un compte");
+        // Personnalisation des boutons de connexion et de création de compte
         connexionBoutton.setBackground(new Color(101, 67, 33));
         connexionBoutton.setFont(medievalFont);
         connexionBoutton.setForeground(medievalTextColor);
@@ -74,8 +75,7 @@ public class FenetreConnexion extends JFrame {
         creationCPTButton.setFont(medievalFont);
         creationCPTButton.setForeground(medievalTextColor);
         
-        
-     // Définition du layout null
+        // Définition du layout null
         contentPane.setLayout(null);
         
         // Ajout des éléments à l'interface utilisateur
@@ -104,5 +104,23 @@ public class FenetreConnexion extends JFrame {
         
         // Définir le panneau avec image de fond comme contenu de la fenêtre
         setContentPane(contentPane);
+        
+        // A afficher si l'id ou le mdp incorrect
+        panelConnexion.setOpaque(false);
+        panelConnexion.setBounds(216, 586, 327, 38);
+        panelConnexion.setVisible(false); // Masquer le panel au début
+        contentPane.add(panelConnexion);
+        
+        JLabel lblNewLabel = new JLabel("Utilisateur ou mot de passe incorrect");
+        panelConnexion.add(lblNewLabel);
+        lblNewLabel.setForeground(new Color(255, 69, 0));
+        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 18));
+        
+        //creation d'une instance de gestion d'evenement
+        ControllerConnexion controller = new ControllerConnexion(this, identifiantField, motDePasseField, panelConnexion);
+        
+        //association avec les boutons
+      	connexionBoutton.addActionListener(controller);
+      	creationCPTButton.addActionListener(controller);
     }
 }
