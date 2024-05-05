@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class FenetreCreation extends JFrame {
-	Compte compte;
+	public Compte compte;
 	JTextField textFieldIdentifiant, textFieldMdp;
 	JButton btnInscrire;
 	JLabel labelIdentifiant, labelMdp, titleLabel;
@@ -136,12 +136,12 @@ public class FenetreCreation extends JFrame {
 	}
 	
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(() -> {
-			FenetreCreation fenetre = new FenetreCreation();
-			fenetre.setVisible(true);
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(() -> {
+//			FenetreCreation fenetre = new FenetreCreation();
+//			fenetre.setVisible(true);
+//		});
+//	}
 }
 	
 

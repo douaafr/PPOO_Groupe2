@@ -12,6 +12,7 @@ public class Main {
 		fc.pack();
 		fc.setSize(800, 800);
 		fc.setLocationRelativeTo(null);
+		fc.setResizable(false);
 		fc.setVisible(true);
 	}
 }
