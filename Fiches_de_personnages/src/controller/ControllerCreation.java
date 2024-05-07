@@ -4,57 +4,76 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import model.Compte;
+import model.Utilisateur;
+import view.FenetreConnexion;
 import view.FenetreCreation;
+import view.MenuAccueilView;
 
 public class ControllerCreation implements ActionListener {
-    private Compte compte;
-    private JTextField zoneTexteId;
-    private JTextField zoneTexteMdp;
-    private JPanel panel;
-    private JButton btnInscrire;
 
-    public ControllerCreation(Compte compte, JTextField zoneTexteId, JTextField zoneTexteMdp, JPanel panel, JButton btnInscrire) {
-        this.compte = compte;
-        this.zoneTexteId = zoneTexteId;
-        this.zoneTexteMdp = zoneTexteMdp;
-        this.panel = panel;
-        this.btnInscrire = btnInscrire;
-        this.btnInscrire.addActionListener(this);
+	FenetreCreation fc;
+	Compte c = new Compte();
+	JTextField identifiantField;
+	JPasswordField motDePasseField;
+	JPanel panel;
+	
+	public ControllerCreation(FenetreCreation f, JTextField id, JPasswordField pwd, JPanel p) {
+		this.fc = f;
+		this.identifiantField = id;
+		this.motDePasseField = pwd;
+		this.panel = p;
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if(((JButton)e.getSource()).getText().equals("S'inscrire")) 
+		{
+			fc.cpt = c; 
+			String identifiant = identifiantField.getText();
+			char[] mdpChars = motDePasseField.getPassword();
+			String motDePasse = new String(mdpChars);
+			Arrays.fill(mdpChars, '0'); // Pour effacer le tableau de caractère
+			Utilisateur user = null;
+			try {
+				user = c.createAccount(identifiant, motDePasse);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			if (user == null) {
+				// Afficher id ou mpd
+				panel.setVisible(true);
+				// Au bout de temps efface la notif et ce qui a été saisie par l'utilisateur
+				int temps = 3000;
+				Timer timer = new Timer(temps, new ActionListener() {
+		            @Override
+		            public void actionPerformed(ActionEvent e) {
+		                // Masquer le JPanel
+		                panel.setVisible(false);
 
-        // Configure the success label but do not add it to panel yet
-        JLabel creationLabel = new JLabel("Compte créé avec succès!");
-        creationLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 24));
-        creationLabel.setForeground(new Color(184, 115, 51));
-        creationLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.setLayout(new BorderLayout());
-        panel.add(creationLabel, BorderLayout.CENTER);
-        creationLabel.setVisible(false);
-    }
+		                // Effacer le contenu des champs de texte
+		                identifiantField.setText("");
+		                motDePasseField.setText("");
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // Only perform action if the source is the 'S'inscrire' button
-        if (e.getSource() == btnInscrire) {
-            if (!zoneTexteId.getText().isEmpty() && !zoneTexteMdp.getText().isEmpty()) {
-                try {
-					compte.createAccount(zoneTexteId.getText(), zoneTexteMdp.getText());
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-                zoneTexteId.setText("");
-                zoneTexteMdp.setText("");
-                panel.removeAll();
-                JLabel successLabel = (JLabel) panel.getComponent(0); // Assuming the label is the first component
-                successLabel.setVisible(true);
-                panel.add(successLabel);
-                panel.revalidate();
-                panel.repaint();
-            } else {
-                JOptionPane.showMessageDialog(panel, "Veuillez remplir tous les champs", "Erreur", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
+		                // Arrêter le timer après expiration
+		                ((Timer) e.getSource()).stop();
+		            }
+		        });
+		        timer.setRepeats(false); // Ne se répète pas
+		        timer.start();
+			} else {
+				FenetreConnexion mav = new FenetreConnexion();
+				mav.pack();
+				mav.setSize(800, 800);
+				mav.setLocationRelativeTo(null);
+				mav.setResizable(false);
+				mav.setVisible(true);
+			}
+		}
+	}
 }
+		
+
+
