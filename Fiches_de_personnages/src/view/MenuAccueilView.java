@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 import model.Utilisateur;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class MenuAccueilView extends JFrame {
     private JLabel nomUtilisateurLabel;
@@ -66,6 +67,28 @@ public class MenuAccueilView extends JFrame {
         deconnexionButton = new JButton("Déconnexion");
         modifierButton = new JButton("Modifier Profil");
     }
+    public void addDeconnexionListener(ActionListener listener) {
+        deconnexionButton.addActionListener(listener);
+    }
 
-  
+    public void addModifier(ActionListener listener) {
+        modifierButton.addActionListener(listener);
+    }
+
+    public void addAjouterFicheListener(ActionListener listener) {
+        ajouterFicheButton.addActionListener(listener);
+    }
+    public void setNomUtilisateur(String nomUtilisateur) {
+		nomUtilisateurLabel.setText(nomUtilisateur);
+	}
+    // Main method to launch the application
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            Utilisateur utilisateurConnecte = new Utilisateur("NomUtilisateur", "MotDePasse");
+            MenuAccueilView menuAccueilView = new MenuAccueilView(utilisateurConnecte.getId());
+            menuAccueilView.setVisible(true);
+        });
+    }
+
+	
 }
