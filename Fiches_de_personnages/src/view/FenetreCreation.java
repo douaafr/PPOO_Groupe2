@@ -137,11 +137,12 @@ public class FenetreCreation extends JFrame {
 	
 
 	public static void main(String[] args) {
-		EventQueue.invokeLater(() -> {
+		//EventQueue.invokeLater(() -> {
 			FenetreCreation fenetre = new FenetreCreation();
 			fenetre.setVisible(true);
-		});
-	}
+		}
+	;
+	//}
 }
 	
 
