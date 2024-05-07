@@ -19,13 +19,14 @@ public class Compte implements Serializable{
     public Utilisateur utilisateur;
     public Vector<Utilisateur> listUtilisateurs = new Vector <Utilisateur>();
     
-    public void createAccount(String identifiant, String motDePasse) throws Exception {
+    public Utilisateur createAccount(String identifiant, String motDePasse) throws Exception {
         Utilisateur utilisateurExistant = chercherUtilisateur(identifiant);
 
         if (utilisateurExistant == null) {
             Utilisateur nouvelUtilisateur = new Utilisateur(identifiant, motDePasse);
             listUtilisateurs.add(nouvelUtilisateur);
             sauvegarderComptes();
+            return nouvelUtilisateur;
         } else {
             throw new Exception("Un utilisateur avec cet identifiant existe déjà.");
         }

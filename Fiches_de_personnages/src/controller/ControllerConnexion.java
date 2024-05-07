@@ -68,9 +68,10 @@ public class ControllerConnexion implements ActionListener {
 		if(((JButton)e.getSource()).getText().equals("Créer un compte")) 
 		{
 			FenetreCreation fenCrea = new FenetreCreation();
-			fenCrea.compte = c;
+			fenCrea.cpt = c;
 			fenCrea.pack();
 			fenCrea.setSize(800, 800);
+			fenCrea.setLocationRelativeTo(null);
 			fenCrea.setResizable(false);
 			fenCrea.setVisible(true);
 		}
