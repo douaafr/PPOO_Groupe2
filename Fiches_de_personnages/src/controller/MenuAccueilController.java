@@ -72,4 +72,4 @@ public class MenuAccueilController {
         view.setVisible(true);
     
     }
-    }
+    } 
