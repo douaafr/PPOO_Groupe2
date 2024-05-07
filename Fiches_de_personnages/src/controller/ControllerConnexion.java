@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 import javax.swing.*;
 import view.FenetreConnexion;
+import view.FenetreCreation;
+import view.MenuAccueilView;
 import model.Compte;
 import model.Utilisateur;
 
@@ -54,14 +56,23 @@ public class ControllerConnexion implements ActionListener {
 		        timer.setRepeats(false); // Ne se répète pas
 		        timer.start();
 			} else {
-				//ouvrir la page d'acceuil de l'utilisateur
+				MenuAccueilView mav = new MenuAccueilView(identifiant);
+				mav.pack();
+				mav.setSize(800, 800);
+				mav.setLocationRelativeTo(null);
+				mav.setResizable(false);
+				mav.setVisible(true);
 			}
 		}
 		
 		if(((JButton)e.getSource()).getText().equals("Créer un compte")) 
 		{
-			fc.cpt = c;
-			// ouvrir la page de création de compte
+			FenetreCreation fenCrea = new FenetreCreation();
+			fenCrea.compte = c;
+			fenCrea.pack();
+			fenCrea.setSize(800, 800);
+			fenCrea.setResizable(false);
+			fenCrea.setVisible(true);
 		}
 	}
 }
