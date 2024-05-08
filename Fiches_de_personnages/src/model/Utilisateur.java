@@ -101,6 +101,11 @@ public class Utilisateur implements Serializable{
         sauvegarderFichesPersonnages();
     }
     
+    public void addFichePersonnage(FichePersonnage fiche) {
+        listFichesPersonnages.add(fiche);
+        sauvegarderFichesPersonnages();
+    }
+    
     public Vector<FichePersonnage> getFichesPersonnages() {
     	return new Vector<>(listFichesPersonnages);	
     }
