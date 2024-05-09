@@ -285,7 +285,7 @@ public class FenetreFichePerso extends JFrame {
         competencesList.setModel(model);
     }
 
-    public void updateEquipments(DefaultListModel<String> model) {
+    public void updateEquipements(DefaultListModel<String> model) {
         equipementList.setModel(model);
     }
 

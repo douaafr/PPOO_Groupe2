@@ -113,7 +113,7 @@ public class ControllerFichePerso {
             // Mettre à jour la vue
             DefaultListModel<String> modelList = (DefaultListModel<String>) view.getEquipementList().getModel();
             modelList.addElement(equipName);
-            view.updateEquipments(modelList);
+            view.updateEquipements(modelList);
         }
     }
 
