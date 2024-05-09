@@ -7,7 +7,10 @@ import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 
+import java.util.List;
+
 import model.FichePersonnage;
+import model.Statistique;
 import model.Utilisateur;
 import controller.ControllerFichePerso;
 
@@ -70,32 +73,33 @@ public class FenetreFichePerso extends JFrame {
         // Panneau de biographie en dessous du topPanel
         JPanel bioPanel = new JPanel(new BorderLayout());
         bioTextArea = new JTextArea(5, 20);
+        bioTextArea.setLineWrap(true); // Active le retour à la ligne
+        bioTextArea.setWrapStyleWord(true); // S'assure que les mots ne sont pas coupés en deux
         bioPanel.add(new JLabel("Biographie"), BorderLayout.NORTH);
         bioPanel.add(new JScrollPane(bioTextArea), BorderLayout.CENTER);
         getContentPane().add(bioPanel, BorderLayout.WEST);
-
+        
         // Panneau central pour les statistiques
         JPanel statsPanel = new JPanel(new BorderLayout());
-        String[] colNames = {"Statistique", "Valeur"};
-        statsTable = new JTable(new Object[][]{}, colNames);
+        statsTable = new JTable();
+        setupStatsTable();
         statsPanel.add(new JLabel("Statistiques"), BorderLayout.NORTH);
         statsPanel.add(new JScrollPane(statsTable), BorderLayout.CENTER);
         getContentPane().add(statsPanel, BorderLayout.CENTER);
 
         // Panneau pour les compétences et l'équipement
         JPanel listPanel = new JPanel(new GridLayout(2, 1));
-        competencesList = new JList<>(new DefaultListModel<>());
         JPanel compPanel = new JPanel(new BorderLayout());
+        setupCompetencesList();
         compPanel.add(new JLabel("Compétences"), BorderLayout.NORTH);
         compPanel.add(new JScrollPane(competencesList), BorderLayout.CENTER);
         listPanel.add(compPanel);
-
-        equipementList = new JList<>(new DefaultListModel<>());
+        
         JPanel equipPanel = new JPanel(new BorderLayout());
+        setupEquipementList();
         equipPanel.add(new JLabel("Équipement"), BorderLayout.NORTH);
         equipPanel.add(new JScrollPane(equipementList), BorderLayout.CENTER);
         listPanel.add(equipPanel);
-
         getContentPane().add(listPanel, BorderLayout.EAST);
         
         // Ajout des champs et boutons pour les statistiques, compétences et équipements
@@ -133,6 +137,73 @@ public class FenetreFichePerso extends JFrame {
         getContentPane().add(controlPanel, BorderLayout.SOUTH);
 
         setVisible(true);
+    }
+    
+    private void setupStatsTable() {
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 1;
+            }
+            
+            @Override
+            public void setValueAt(Object aValue, int row, int column) {
+            	if (column == 1) {
+            		try {
+            			int newValue = Integer.parseInt(aValue.toString());
+            			super.setValueAt(newValue, row, column); // Met à jour la vue seulement si la conversion est réussie
+            			fichePersonnage.getStatistiques().get(row).setValue(newValue); // Met à jour le modèle
+            		} catch (NumberFormatException e) {
+            			JOptionPane.showMessageDialog(null, "La valeur ne peut être modifiée. Veuillez entrer un nombre valide.");
+            		}
+            	} else {
+            		super.setValueAt(aValue, row, column); // Pour toutes les autres colonnes, permettre la modification normale.
+            	}
+            }
+        };
+        model.setColumnIdentifiers(new String[]{"Statistique", "Valeur"});
+        statsTable.setModel(model);
+        JPopupMenu popupMenu = createPopupMenu(statsTable, true);
+        statsTable.setComponentPopupMenu(popupMenu);
+    }
+
+    private void setupCompetencesList() {
+        competencesList = new JList<>(new DefaultListModel<>());
+        JPopupMenu popupMenu = createPopupMenu(competencesList, false);
+        competencesList.setComponentPopupMenu(popupMenu);
+    }
+
+    private void setupEquipementList() {
+        equipementList = new JList<>(new DefaultListModel<>());
+        JPopupMenu popupMenu = createPopupMenu(equipementList, false);
+        equipementList.setComponentPopupMenu(popupMenu);
+    }
+    
+    private JPopupMenu createPopupMenu(JComponent component, boolean isTable) {
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem deleteItem = new JMenuItem("Supprimer");
+        deleteItem.addActionListener(e -> {
+            if (isTable) {
+                int row = statsTable.getSelectedRow();
+                if (row >= 0) {
+                    ((DefaultTableModel) statsTable.getModel()).removeRow(row);
+                    fichePersonnage.getStatistiques().remove(row);
+                }
+            } else {
+                JList list = (JList) component;
+                int index = list.getSelectedIndex();
+                if (index != -1) {
+                    ((DefaultListModel) list.getModel()).remove(index);
+                    if (list == competencesList) {
+                        fichePersonnage.getCompetences().remove(index);
+                    } else if (list == equipementList) {
+                        fichePersonnage.getEquipements().remove(index);
+                    }
+                }
+            }
+        });
+        popupMenu.add(deleteItem);
+        return popupMenu;
     }
 
     public void addSaveButtonListener(ActionListener listener) {
@@ -201,10 +272,13 @@ public class FenetreFichePerso extends JFrame {
     public JTextField getNewEquipField() {
         return newEquipField;
     }
-    
-    public void updateStats(Object[][] statsData) {
-        String[] columnNames = {"Statistique", "Valeur"};
-        statsTable.setModel(new DefaultTableModel(statsData, columnNames));
+
+    public void updateStats(List<Statistique> statistiques) {
+        DefaultTableModel model = (DefaultTableModel) statsTable.getModel();
+        model.setRowCount(0);
+        for (Statistique stat : statistiques) {
+            model.addRow(new Object[]{stat.getName(), stat.getValue()});
+        }
     }
 
     public void updateCompetences(DefaultListModel<String> model) {
@@ -220,6 +294,10 @@ public class FenetreFichePerso extends JFrame {
             portraitLabel.setIcon(new ImageIcon(fichePersonnage.getPortrait().getPath()));
         }
     }
+    
+    public void setController() {
+    	ControllerFichePerso controller = new ControllerFichePerso(this.utilisateur, this.fichePersonnage, this);
+    }
 
     public static void main(String[] args) throws Exception {
     	UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -227,7 +305,7 @@ public class FenetreFichePerso extends JFrame {
     	Utilisateur utilisateur = new Utilisateur();
         FichePersonnage fiche = new FichePersonnage(utilisateur.getFichesPersonnages().size()+1);
         FenetreFichePerso view = new FenetreFichePerso(utilisateur, fiche);
-        ControllerFichePerso controller = new ControllerFichePerso(view.utilisateur, fiche, view);
+        view.setController();
         view.pack();
 		view.setSize(1155, 800);
 		view.setLocationRelativeTo(null);

@@ -52,33 +52,33 @@ public class ControllerFichePerso {
     }
 
     class AddStatButtonListener implements ActionListener {
-    	 @Override
-    	    public void actionPerformed(ActionEvent e) {
-    	        String statName = view.getNewStatField().getText();
-    	        String statValue = view.getNewStatValueField().getText();  // Récupère la valeur de la nouvelle statistique
-
-    	        // Efface les champs de texte après l'ajout
-    	        view.getNewStatField().setText("");
-    	        view.getNewStatValueField().setText("");
-
-    	        if (statName.isEmpty()) {
-    	            JOptionPane.showMessageDialog(view, "Le nom de la statistique ne peut pas être vide !");
-    	            return;
-    	        }
-
-    	        int value = statValue.isEmpty() ? 0 : parseStatValue(statValue); // Utilise 0 comme valeur par défaut si le champ valeur est vide
-    	        fiche.addStatistique(new Statistique(statName, value)); // Ajoute la statistique au modèle avec la valeur spécifiée ou par défaut
-    	        view.updateStats(convertToStatArray(fiche.getStatistiques()));
-    	    }
-
-    	    private int parseStatValue(String statValue) {
-    	        try {
-    	            return Integer.parseInt(statValue);  // Convertit la valeur en entier
-    	        } catch (NumberFormatException nfe) {
-    	            JOptionPane.showMessageDialog(view, "Veuillez entrer un nombre valide pour la valeur de la statistique ou laisser vide pour utiliser la valeur par défaut de 0.");
-    	            return 0;  // Retourne 0 si la conversion échoue
-    	        }
-    	    }
+    	@Override
+	    public void actionPerformed(ActionEvent e) {
+	        String statName = view.getNewStatField().getText();
+	        String statValue = view.getNewStatValueField().getText();  // Récupère la valeur de la nouvelle statistique
+	
+	        // Efface les champs de texte après l'ajout
+	        view.getNewStatField().setText("");
+	        view.getNewStatValueField().setText("");
+	
+	        if (statName.isEmpty()) {
+	            JOptionPane.showMessageDialog(view, "Le nom de la statistique ne peut pas être vide !");
+	            return;
+	        }
+	
+	        int value = statValue.isEmpty() ? 0 : parseStatValue(statValue); // Utilise 0 comme valeur par défaut si le champ valeur est vide
+	        fiche.addStatistique(new Statistique(statName, value)); // Ajoute la statistique au modèle avec la valeur spécifiée ou par défaut
+	        view.updateStats(fiche.getStatistiques());
+	    }
+	
+	    private int parseStatValue(String statValue) {
+	        try {
+	            return Integer.parseInt(statValue);  // Convertit la valeur en entier
+	        } catch (NumberFormatException nfe) {
+	            JOptionPane.showMessageDialog(view, "La valeur de la statistique saisie n'est pas valide. Elle est initialisée par la valeur par défaut : 0.");
+	            return 0;  // Retourne 0 si la conversion échoue
+	        }
+	    }
     }
 
     class AddCompButtonListener implements ActionListener {
@@ -117,16 +117,6 @@ public class ControllerFichePerso {
         }
     }
 
-    // Convertir la liste de statistiques en format de tableau pour JTable
-    private Object[][] convertToStatArray(List<Statistique> statistiques) {
-        Object[][] data = new Object[statistiques.size()][2];
-        for (int i = 0; i < statistiques.size(); i++) {
-            data[i][0] = statistiques.get(i).getName();
-            data[i][1] = statistiques.get(i).getValue();
-        }
-        return data;
-    }
-    
     class SaveButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
