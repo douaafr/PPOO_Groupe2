@@ -56,7 +56,7 @@ public class ControllerConnexion implements ActionListener {
 		        timer.setRepeats(false); // Ne se répète pas
 		        timer.start();
 			} else {
-				MenuAccueilView mav = new MenuAccueilView(identifiant);
+				MenuAccueilView mav = new MenuAccueilView(user);
 				mav.pack();
 				mav.setSize(800, 800);
 				mav.setLocationRelativeTo(null);
