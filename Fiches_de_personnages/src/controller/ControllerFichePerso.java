@@ -127,6 +127,8 @@ public class ControllerFichePerso {
             utilisateur.addFichePersonnage(fiche);
             
             JOptionPane.showMessageDialog(view, "Données sauvegardées !");
+            
+            view.setVisible(false);
         }
     }
 }

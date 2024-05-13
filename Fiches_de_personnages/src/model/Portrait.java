@@ -4,11 +4,15 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
-public class Portrait {
+public class Portrait implements Serializable{
     
+	private static final long serialVersionUID = 6072237744168435781L;
     public String path = "resources/portrait_par_defaut.png";
     public int posX;
     public int posY;

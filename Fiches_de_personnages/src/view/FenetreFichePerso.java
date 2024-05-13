@@ -299,17 +299,17 @@ public class FenetreFichePerso extends JFrame {
     	ControllerFichePerso controller = new ControllerFichePerso(this.utilisateur, this.fichePersonnage, this);
     }
 
-    public static void main(String[] args) throws Exception {
-    	UIManager.setLookAndFeel(new NimbusLookAndFeel());
-    	
-    	Utilisateur utilisateur = new Utilisateur();
-        FichePersonnage fiche = new FichePersonnage(utilisateur.getFichesPersonnages().size()+1);
-        FenetreFichePerso view = new FenetreFichePerso(utilisateur, fiche);
-        view.setController();
-        view.pack();
-		view.setSize(1155, 800);
-		view.setLocationRelativeTo(null);
-		view.setResizable(false);
-		view.setVisible(true);
-    }
+//    public static void main(String[] args) throws Exception {
+//    	UIManager.setLookAndFeel(new NimbusLookAndFeel());
+//    	
+//    	Utilisateur utilisateur = new Utilisateur();
+//        FichePersonnage fiche = new FichePersonnage(utilisateur.getFichesPersonnages().size()+1);
+//        FenetreFichePerso view = new FenetreFichePerso(utilisateur, fiche);
+//        view.setController();
+//        view.pack();
+//		view.setSize(1155, 800);
+//		view.setLocationRelativeTo(null);
+//		view.setResizable(false);
+//		view.setVisible(true);
+//    }
 }

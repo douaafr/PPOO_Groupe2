@@ -1,7 +1,10 @@
 package model;
 
-public class Statistique {
+import java.io.Serializable;
 
+public class Statistique implements Serializable{
+
+	private static final long serialVersionUID = 4920305279045022742L;
 	private String name;
     private int value;
 
