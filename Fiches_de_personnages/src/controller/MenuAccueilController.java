@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import view.MenuAccueilView;
 import view.FenetrePassword;
+import view.FenetreConnexion;
 import view.FenetreFichePerso;
 import model.Compte;
 import model.FichePersonnage;
@@ -36,7 +37,12 @@ public class MenuAccueilController implements ActionListener {
         } else if (source.getText().equals("Se déconnecter")) {
             // Appelle la méthode de déconnexion du modèle Utilisateur
             c.signOut(utilisateur);  // Assurez-vous que cette méthode gère la déconnexion correctement
-            System.exit(0);  // Ou ouvrir la FenetreConnexion si vous souhaitez revenir à l'écran de connexion
+            FenetreConnexion fenetreconnexion = new FenetreConnexion();
+            fenetreconnexion.pack();
+			fenetreconnexion.setSize(800, 800);
+			fenetreconnexion.setLocationRelativeTo(null);
+			fenetreconnexion.setResizable(false);
+			fenetreconnexion.setVisible(true);// Ou ouvrir la FenetreConnexion si vous souhaitez revenir à l'écran de connexion
         } else if (source.getText().equals("Ajouter une fiche")) {
             FenetreFichePerso fenetreFichePerso = new FenetreFichePerso(utilisateur, fichePersonnage);
             fenetreFichePerso.pack();
