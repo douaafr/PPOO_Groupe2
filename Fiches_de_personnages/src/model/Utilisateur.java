@@ -77,6 +77,7 @@ public class Utilisateur implements Serializable{
     public String getPwd() {
         return password;
         
+        
     }
     public Utilisateur changePwd(String oldPwd, String newPwd) {
         if (mdpCorrect(oldPwd)) { 
