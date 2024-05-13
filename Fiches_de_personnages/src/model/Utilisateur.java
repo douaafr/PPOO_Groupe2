@@ -78,10 +78,11 @@ public class Utilisateur implements Serializable{
         return password;
         
     }
-    public void changePwd(String oldPwd, String newPwd) {
+    public Utilisateur changePwd(String oldPwd, String newPwd) {
         if (mdpCorrect(oldPwd)) { 
             this.password = hashPassword(newPwd);
             compte.sauvegarderComptes();
+            return this;
         } else {
             throw new IllegalArgumentException("L'ancien mot de passe est incorrect.");
         }

@@ -17,56 +17,55 @@ public class ControllerPassword implements ActionListener {
 	FenetrePassword fc;
 	Compte c = new Compte();
 	Utilisateur us = new Utilisateur();
-	JPasswordField oldPwd;
-	JPasswordField newPwd;
+	JPasswordField oldPwdField;
+	JPasswordField newPwdField;
 	JPanel panel;
-	
-	public ControllerPassword(FenetrePassword f, JPasswordField id, JPasswordField pwd, JPanel p) {
+
+	public ControllerPassword(FenetrePassword f, JPasswordField oldPwd, JPasswordField pwd, JPanel p) {
 		this.fc = f;
-		this.oldPwd = id;
-		this.newPwd = pwd;
+		this.oldPwdField = oldPwd;
+		this.newPwdField = pwd;
 		this.panel = p;
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
-		if(((JButton)e.getSource()).getText().equals("Confirmer")) 
-		{
-			fc.user = us; 
-			char[] ancienMdpChars = oldPwd.getPassword(); 
-			char[] nvMdpChars = newPwd.getPassword();
-			String ancienMotDePasse = new String (ancienMdpChars);
+		if (((JButton) e.getSource()).getText().equals("Confirmer")) {
+			fc.user = us;
+			char[] ancienMdpChars = oldPwdField.getPassword();
+			char[] nvMdpChars = newPwdField.getPassword();
+			String ancienMotDePasse = new String(ancienMdpChars);
 			String nvMotDePasse = new String(nvMdpChars);
-			
+
 			Arrays.fill(ancienMdpChars, '0'); // Pour effacer le tableau de caractère
 			Arrays.fill(nvMdpChars, '0'); // Pour effacer le tableau de caractère
 			Utilisateur user = null;
 			try {
-				us.changePwd(ancienMotDePasse, nvMotDePasse);
+				user = us.changePwd(ancienMotDePasse, nvMotDePasse);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			if (user == null) {
-				// Afficher id ou mpd
+				// Afficher oldPwd ou mpd
 				panel.setVisible(true);
 				// Au bout de temps efface la notif et ce qui a été saisie par l'utilisateur
 				int temps = 3000;
 				Timer timer = new Timer(temps, new ActionListener() {
-		            @Override
-		            public void actionPerformed(ActionEvent e) {
-		                // Masquer le JPanel
-		                panel.setVisible(false);
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// Masquer le JPanel
+						panel.setVisible(false);
 
-		                // Effacer le contenu des champs de texte
-		                oldPwd.setText("");
-		                newPwd.setText("");
+						// Effacer le contenu des champs de texte
+						oldPwdField.setText("");
+						newPwdField.setText("");
 
-		                // Arrêter le timer après expiration
-		                ((Timer) e.getSource()).stop();
-		            }
-		        });
-		        timer.setRepeats(false); // Ne se répète pas
-		        timer.start();
+						// Arrêter le timer après expiration
+						((Timer) e.getSource()).stop();
+					}
+				});
+				timer.setRepeats(false); // Ne se répète pas
+				timer.start();
 			} else {
 				MenuAccueilView mav = new MenuAccueilView(user.getId());
 				mav.pack();
@@ -75,11 +74,7 @@ public class ControllerPassword implements ActionListener {
 				mav.setResizable(false);
 				mav.setVisible(true);
 			}
-			
-			
+
 		}
 	}
 }
-		
-
-
