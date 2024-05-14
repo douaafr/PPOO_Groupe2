@@ -1,30 +1,28 @@
 package controller;
 
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import java.io.File;
-
 import model.Utilisateur;
 import model.FichePersonnage;
 import model.Statistique;
 import view.FenetreFichePerso;
-
+import view.MenuAccueilView;
 
 public class ControllerFichePerso {
 	
 	private Utilisateur utilisateur;
 	private FichePersonnage fiche;
     private FenetreFichePerso view;
+    private MenuAccueilView mAV;
 
-    public ControllerFichePerso(Utilisateur user, FichePersonnage model, FenetreFichePerso view) {
+    public ControllerFichePerso(Utilisateur user, FichePersonnage model, FenetreFichePerso view, MenuAccueilView mav) {
     	this.utilisateur = user;
         this.fiche = model;
         this.view = view;
+        this.mAV = mav;
         initController();
     }
 
@@ -44,7 +42,6 @@ public class ControllerFichePerso {
             int result = fileChooser.showOpenDialog(view);
             if (result == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
-                //fiche.setPortrait(new Portrait());
                 fiche.getPortrait().setPath(selectedFile.getAbsolutePath());
                 view.setPortrait(selectedFile.getAbsolutePath());
             }
@@ -120,14 +117,35 @@ public class ControllerFichePerso {
     class SaveButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-        	fiche.setName(view.getNameField().getText());
-            fiche.setPointDeVie(Integer.parseInt(view.getPVField().getText()));
-            fiche.setAge(Integer.parseInt(view.getAgeField().getText()));
+            String nom = view.getNameField().getText();
+            String pv = view.getPVField().getText();
+            String age = view.getAgeField().getText();
+
+            if (nom.isEmpty() || pv.isEmpty() || age.isEmpty()) {
+                JOptionPane.showMessageDialog(view, "Vous devez remplir tous les champs obligatoires !");
+                return;
+            }
+
+            fiche.setName(nom);
+            try {
+                fiche.setPointDeVie(Integer.parseInt(pv));
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(view, "Les points de vie doivent être un nombre valide !");
+                return;
+            }
+
+            try {
+                fiche.setAge(Integer.parseInt(age));
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(view, "L'âge doit être un nombre valide !");
+                return;
+            }
+
             fiche.setBiographie(view.getBiographie().getText());
             utilisateur.addFichePersonnage(fiche);
-            
+
             JOptionPane.showMessageDialog(view, "Données sauvegardées !");
-            
+            mAV.updateFicheList();
             view.setVisible(false);
         }
     }

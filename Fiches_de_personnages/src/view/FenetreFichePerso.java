@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,6 +20,7 @@ public class FenetreFichePerso extends JFrame {
 
 	private Utilisateur utilisateur;
 	private FichePersonnage fichePersonnage;
+	private MenuAccueilView mAV;
     private JTextField nameField;
     private JTextField pvField;  
     private JTextField ageField;
@@ -31,9 +34,10 @@ public class FenetreFichePerso extends JFrame {
     private JButton addStatButton, addCompButton, addEquipButton;
     private JTextField newStatField, newStatValueField, newCompField, newEquipField;
 
-    public FenetreFichePerso(Utilisateur user, FichePersonnage fichePersonnage) {
+    public FenetreFichePerso(Utilisateur user, FichePersonnage fichePersonnage, MenuAccueilView mav) {
     	this.utilisateur = user;
         this.fichePersonnage = fichePersonnage;
+        this.mAV = mav;
         initUI();
     }
 
@@ -60,11 +64,11 @@ public class FenetreFichePerso extends JFrame {
         nameField = new JTextField(20);
         ageField = new JTextField(5);
         pvField = new JTextField(5); 
-        namePanel.add(new JLabel("Nom:"));
+        namePanel.add(new JLabel("Nom *:"));
         namePanel.add(nameField);
-        namePanel.add(new JLabel("Âge:"));
+        namePanel.add(new JLabel("Âge *:"));
         namePanel.add(ageField);
-        namePanel.add(new JLabel("Points de Vie:"));
+        namePanel.add(new JLabel("Points de Vie *:"));
         namePanel.add(pvField);
         topPanel.add(namePanel, BorderLayout.CENTER);
 
@@ -133,8 +137,37 @@ public class FenetreFichePerso extends JFrame {
         // Panneau inférieur pour les boutons
         JPanel controlPanel = new JPanel();
         saveButton = new JButton("Sauvegarder");
+        saveButton.setEnabled(false); // Désactiver le bouton par défaut
         controlPanel.add(saveButton);
         getContentPane().add(controlPanel, BorderLayout.SOUTH);
+
+        // Ajouter les DocumentListeners pour activer le bouton de sauvegarde
+        DocumentListener documentListener = new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                checkFields();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                checkFields();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                checkFields();
+            }
+
+            private void checkFields() {
+                saveButton.setEnabled(!nameField.getText().trim().isEmpty()
+                        && !pvField.getText().trim().isEmpty()
+                        && !ageField.getText().trim().isEmpty());
+            }
+        };
+
+        nameField.getDocument().addDocumentListener(documentListener);
+        pvField.getDocument().addDocumentListener(documentListener);
+        ageField.getDocument().addDocumentListener(documentListener);
 
         setVisible(true);
     }
@@ -226,7 +259,6 @@ public class FenetreFichePerso extends JFrame {
         addEquipButton.addActionListener(listener);
     }
 
-
     public JTextField getNameField() {
         return nameField;
     }
@@ -296,7 +328,7 @@ public class FenetreFichePerso extends JFrame {
     }
     
     public void setController() {
-    	ControllerFichePerso controller = new ControllerFichePerso(this.utilisateur, this.fichePersonnage, this);
+    	ControllerFichePerso controller = new ControllerFichePerso(this.utilisateur, this.fichePersonnage, this, mAV);
     }
 
 //    public static void main(String[] args) throws Exception {

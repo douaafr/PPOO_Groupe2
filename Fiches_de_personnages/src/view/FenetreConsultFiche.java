@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,6 +18,7 @@ import controller.ControllerConsultFiche;
 
 public class FenetreConsultFiche extends JFrame {
 
+	private MenuAccueilView mAV;
 	private Utilisateur utilisateur;
 	private FichePersonnage fichePersonnage;
     private JTextField nameField;
@@ -31,9 +34,10 @@ public class FenetreConsultFiche extends JFrame {
     private JButton addStatButton, addCompButton, addEquipButton;
     private JTextField newStatField, newStatValueField, newCompField, newEquipField;
 
-    public FenetreConsultFiche(Utilisateur user, FichePersonnage fichePersonnage) {
+    public FenetreConsultFiche(Utilisateur user, FichePersonnage fichePersonnage, MenuAccueilView mav) {
     	this.utilisateur = user;
         this.fichePersonnage = fichePersonnage;
+        this.mAV = mav;
         initUI();
         loadFicheData();
     }
@@ -41,6 +45,7 @@ public class FenetreConsultFiche extends JFrame {
     private void initUI() {
         setTitle("Consultation Fiche Personnage");
         setSize(1155, 800);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
 
@@ -60,11 +65,11 @@ public class FenetreConsultFiche extends JFrame {
         nameField = new JTextField(20);
         ageField = new JTextField(5);
         pvField = new JTextField(5); 
-        namePanel.add(new JLabel("Nom:"));
+        namePanel.add(new JLabel("Nom *:"));
         namePanel.add(nameField);
-        namePanel.add(new JLabel("Âge:"));
+        namePanel.add(new JLabel("Âge *:"));
         namePanel.add(ageField);
-        namePanel.add(new JLabel("Points de Vie:"));
+        namePanel.add(new JLabel("Points de Vie *:"));
         namePanel.add(pvField);
         topPanel.add(namePanel, BorderLayout.CENTER);
 
@@ -133,8 +138,37 @@ public class FenetreConsultFiche extends JFrame {
         // Panneau inférieur pour les boutons
         JPanel controlPanel = new JPanel();
         saveButton = new JButton("Sauvegarder");
+        saveButton.setEnabled(false); // Désactiver le bouton par défaut
         controlPanel.add(saveButton);
         getContentPane().add(controlPanel, BorderLayout.SOUTH);
+
+        // Ajouter les DocumentListeners pour activer le bouton de sauvegarde
+        DocumentListener documentListener = new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                checkFields();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                checkFields();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                checkFields();
+            }
+
+            private void checkFields() {
+                saveButton.setEnabled(!nameField.getText().trim().isEmpty()
+                        && !pvField.getText().trim().isEmpty()
+                        && !ageField.getText().trim().isEmpty());
+            }
+        };
+
+        nameField.getDocument().addDocumentListener(documentListener);
+        pvField.getDocument().addDocumentListener(documentListener);
+        ageField.getDocument().addDocumentListener(documentListener);
 
         setVisible(true);
     }
@@ -236,7 +270,6 @@ public class FenetreConsultFiche extends JFrame {
         addEquipButton.addActionListener(listener);
     }
 
-
     public JTextField getNameField() {
         return nameField;
     }
@@ -286,15 +319,19 @@ public class FenetreConsultFiche extends JFrame {
     public void updateStats(List<Statistique> stats) {
         DefaultTableModel model = (DefaultTableModel) statsTable.getModel();
         model.setRowCount(0);
-        for (Statistique stat : stats) {
-            model.addRow(new Object[]{stat.getName(), stat.getValue()});
+        if (stats != null) {
+        	for (Statistique stat : stats) {
+                model.addRow(new Object[]{stat.getName(), stat.getValue()});
+            }
         }
     }
     
     private DefaultListModel<String> listToDefaultListModel(List<String> list) {
         DefaultListModel<String> model = new DefaultListModel<>();
-        for (String item : list) {
-            model.addElement(item);
+        if(list != null) {
+	        for (String item : list) {
+	            model.addElement(item);
+	        }
         }
         return model;
     }
@@ -314,31 +351,32 @@ public class FenetreConsultFiche extends JFrame {
     }
     
     public void setController() {
-    	ControllerConsultFiche controller = new ControllerConsultFiche(this.utilisateur, this.fichePersonnage, this);
+    	new ControllerConsultFiche(this.utilisateur, this.fichePersonnage, this, mAV);
     }
 
-    public static void main(String[] args) throws Exception {
-    	UIManager.setLookAndFeel(new NimbusLookAndFeel());
-    	
-    	Utilisateur utilisateur = new Utilisateur();
-        FichePersonnage fiche = new FichePersonnage(utilisateur.getFichesPersonnages().size()+1);
-        fiche.setName("Fiche1");
-        fiche.setAge(15);
-        fiche.setPointDeVie(0);
-        fiche.setBiographie("C'est un perso pour tester la consultation de fiche");
-        fiche.addCompetence("course");
-        fiche.addCompetence("natation");
-        fiche.addEquipement("bouclier");
-        fiche.addEquipement("épée");
-        fiche.addStatistique(new Statistique("force", 10));
-        fiche.addStatistique(new Statistique("puissance", 0));
-        fiche.getPortrait().setPath("resources/image2.jpeg");
-        FenetreConsultFiche view = new FenetreConsultFiche(utilisateur, fiche);
-        view.setController();
-        view.pack();
-		view.setSize(1155, 800);
-		view.setLocationRelativeTo(null);
-		view.setResizable(false);
-		view.setVisible(true);
-    }
+//    public static void main(String[] args) throws Exception {
+//    	UIManager.setLookAndFeel(new NimbusLookAndFeel());
+//    	
+//    	Utilisateur utilisateur = new Utilisateur();
+//        FichePersonnage fiche = new FichePersonnage(utilisateur.getFichesPersonnages().size()+1);
+//        fiche.setName("Fiche1");
+//        fiche.setAge(15);
+//        fiche.setPointDeVie(0);
+//        fiche.setBiographie("C'est un perso pour tester la consultation de fiche");
+//        fiche.addCompetence("course");
+//        fiche.addCompetence("natation");
+//        fiche.addEquipement("bouclier");
+//        fiche.addEquipement("épée");
+//        fiche.addStatistique(new Statistique("force", 10));
+//        fiche.addStatistique(new Statistique("puissance", 0));
+//        fiche.getPortrait().setPath("resources/image2.jpeg");
+//        FenetreConsultFiche view = new FenetreConsultFiche(utilisateur, fiche);
+//        view.setController();
+//        view.pack();
+//		view.setSize(1155, 800);
+//		view.setLocationRelativeTo(null);
+//		view.setResizable(false);
+//		view.setVisible(true);
+//    }
+
 }

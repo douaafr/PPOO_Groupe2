@@ -70,6 +70,7 @@ public class ControllerCreation implements ActionListener {
 				mav.setLocationRelativeTo(null);
 				mav.setResizable(false);
 				mav.setVisible(true);
+				fc.setVisible(false);
 			}
 		}
 	}

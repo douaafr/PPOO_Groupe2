@@ -7,6 +7,7 @@ import model.FichePersonnage;
 import model.Statistique;
 import model.Utilisateur;
 import view.FenetreConsultFiche;
+import view.MenuAccueilView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,11 +18,13 @@ public class ControllerConsultFiche {
 	private Utilisateur utilisateur;
 	private FichePersonnage fiche;
     private FenetreConsultFiche view;
+    private MenuAccueilView mAV;
 	
-	public ControllerConsultFiche(Utilisateur user, FichePersonnage model, FenetreConsultFiche view) {
+	public ControllerConsultFiche(Utilisateur user, FichePersonnage model, FenetreConsultFiche view, MenuAccueilView mav) {
 		this.utilisateur = user;
 		this.fiche = model;
 		this.view = view;
+		this.mAV = mav;
 		initController();
 	}
 
@@ -116,13 +119,36 @@ public class ControllerConsultFiche {
     class SaveButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-        	fiche.setName(view.getNameField().getText());
-            fiche.setPointDeVie(Integer.parseInt(view.getPVField().getText()));
-            fiche.setAge(Integer.parseInt(view.getAgeField().getText()));
+            String nom = view.getNameField().getText();
+            String pv = view.getPVField().getText();
+            String age = view.getAgeField().getText();
+
+            if (nom.isEmpty() || pv.isEmpty() || age.isEmpty()) {
+                JOptionPane.showMessageDialog(view, "Vous devez remplir tous les champs obligatoires !");
+                return;
+            }
+
+            fiche.setName(nom);
+            try {
+                fiche.setPointDeVie(Integer.parseInt(pv));
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(view, "Les points de vie doivent être un nombre valide !");
+                return;
+            }
+
+            try {
+                fiche.setAge(Integer.parseInt(age));
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(view, "L'âge doit être un nombre valide !");
+                return;
+            }
+
             fiche.setBiographie(view.getBiographie().getText());
-            utilisateur.addFichePersonnage(fiche);
-            
+            utilisateur.sauvegarderFichesPersonnages();
+
             JOptionPane.showMessageDialog(view, "Données sauvegardées !");
+            mAV.updateFicheList();
+            view.setVisible(false);
         }
     }
 }

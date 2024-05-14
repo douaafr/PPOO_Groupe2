@@ -67,12 +67,13 @@ public class ControllerPassword implements ActionListener {
 				timer.setRepeats(false); // Ne se répète pas
 				timer.start();
 			} else {
-				MenuAccueilView mav = new MenuAccueilView(user);
-				mav.pack();
-				mav.setSize(800, 800);
-				mav.setLocationRelativeTo(null);
-				mav.setResizable(false);
-				mav.setVisible(true);
+//				MenuAccueilView mav = new MenuAccueilView(user);
+//				mav.pack();
+//				mav.setSize(800, 800);
+//				mav.setLocationRelativeTo(null);
+//				mav.setResizable(false);
+//				mav.setVisible(true);
+				fc.setVisible(false);
 				
 			}
 

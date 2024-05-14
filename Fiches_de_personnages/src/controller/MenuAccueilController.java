@@ -6,110 +6,98 @@ import view.MenuAccueilView;
 import view.FenetrePassword;
 import view.FenetreConnexion;
 import view.FenetreFichePerso;
+import view.FenetreConsultFiche;
 import model.Compte;
 import model.FichePersonnage;
 import model.Utilisateur;
 
 public class MenuAccueilController implements ActionListener {
-
-     MenuAccueilView view;
-     Utilisateur utilisateur;
-     Compte c = new Compte();
-     FichePersonnage fichePersonnage;
+    MenuAccueilView view;
+    Utilisateur utilisateur;
+    Compte compte = new Compte();
+    JPopupMenu popupMenu;
+    JMenuItem consultMenuItem;
+    JMenuItem deleteMenuItem;
 
     public MenuAccueilController(MenuAccueilView view, Utilisateur utilisateur) {
         this.view = view;
         this.utilisateur = utilisateur;
+        createPopupMenu();
+    }
 
+    private void createPopupMenu() {
+        popupMenu = new JPopupMenu();
+        consultMenuItem = new JMenuItem("Consulter");
+        deleteMenuItem = new JMenuItem("Supprimer");
+
+        consultMenuItem.addActionListener(e -> {
+            FichePersonnage selectedFiche = view.getSelectedFichePersonnage();
+            if (selectedFiche != null) {
+                FenetreConsultFiche consultFiche = new FenetreConsultFiche(utilisateur, selectedFiche, view);
+                consultFiche.setController();
+                consultFiche.pack();
+        		consultFiche.setSize(1155, 800);
+        		consultFiche.setLocationRelativeTo(null);
+        		consultFiche.setResizable(false);
+        		consultFiche.setVisible(true);
+            }
+        });
+
+        deleteMenuItem.addActionListener(e -> {
+            FichePersonnage selectedFiche = view.getSelectedFichePersonnage();
+            if (selectedFiche != null) {
+            	// Définir les textes en français pour le JOptionPane
+                UIManager.put("OptionPane.yesButtonText", "Oui");
+                UIManager.put("OptionPane.noButtonText", "Non");
+                UIManager.put("OptionPane.messageDialogTitle", "Confirmation");
+                int confirm = JOptionPane.showConfirmDialog(view, "Êtes-vous sûr de vouloir supprimer cette fiche ?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    utilisateur.deleteFiche(selectedFiche.getIdFiche());
+                    view.updateFicheList();
+                }
+            }
+        });
+
+        popupMenu.add(consultMenuItem);
+        popupMenu.add(deleteMenuItem);
+    }
+
+    public void showPopupMenu(MouseEvent e) {
+        int index = view.getListFiches().locationToIndex(e.getPoint());
+        view.getListFiches().setSelectedIndex(index);
+        popupMenu.show(e.getComponent(), e.getX(), e.getY());
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JButton source = (JButton)e.getSource();
+        JButton source = (JButton) e.getSource();
 
         if (source.getText().equals("Modifier le mot de passe")) {
             FenetrePassword fenetrePassword = new FenetrePassword();
             fenetrePassword.pack();
-			fenetrePassword.setSize(800, 800);
-			fenetrePassword.setLocationRelativeTo(null);
-			fenetrePassword.setResizable(false);
-			fenetrePassword.setVisible(true);
+            fenetrePassword.setSize(800, 800);
+            fenetrePassword.setLocationRelativeTo(null);
+            fenetrePassword.setResizable(false);
+            fenetrePassword.setVisible(true);
         } else if (source.getText().equals("Se déconnecter")) {
             // Appelle la méthode de déconnexion du modèle Utilisateur
-            c.signOut(utilisateur);  // Assurez-vous que cette méthode gère la déconnexion correctement
-            FenetreConnexion fenetreconnexion = new FenetreConnexion();
-            fenetreconnexion.pack();
-			fenetreconnexion.setSize(800, 800);
-			fenetreconnexion.setLocationRelativeTo(null);
-			fenetreconnexion.setResizable(false);
-			fenetreconnexion.setVisible(true);// Ou ouvrir la FenetreConnexion si vous souhaitez revenir à l'écran de connexion
+            compte.signOut(utilisateur); // Assurez-vous que cette méthode gère la déconnexion correctement
+            FenetreConnexion fenetreConnexion = new FenetreConnexion();
+            fenetreConnexion.pack();
+            fenetreConnexion.setSize(800, 800);
+            fenetreConnexion.setLocationRelativeTo(null);
+            fenetreConnexion.setResizable(false);
+            fenetreConnexion.setVisible(true); // Ou ouvrir la FenetreConnexion si vous souhaitez revenir à l'écran de connexion
+            view.dispose(); // Fermer la fenêtre actuelle
         } else if (source.getText().equals("Ajouter une fiche")) {
-            FenetreFichePerso fenetreFichePerso = new FenetreFichePerso(utilisateur, fichePersonnage);
+            FichePersonnage fichePersonnage = new FichePersonnage(utilisateur.getFichesPersonnages().size() + 1);
+            FenetreFichePerso fenetreFichePerso = new FenetreFichePerso(utilisateur, fichePersonnage, view);
+            fenetreFichePerso.setController();
             fenetreFichePerso.pack();
-			fenetreFichePerso.setSize(800, 800);
-			fenetreFichePerso.setLocationRelativeTo(null);
-			fenetreFichePerso.setResizable(false);
-			fenetreFichePerso.setVisible(true);
+            fenetreFichePerso.setSize(1155, 800);
+            fenetreFichePerso.setLocationRelativeTo(null);
+            fenetreFichePerso.setResizable(false);
+            fenetreFichePerso.setVisible(true);
         }
     }
 }
-
-
-
-
-
-//import javax.swing.*;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-//
-//import model.Utilisateur;
-//import model.Compte;
-//import model.FichePersonnage;
-//import view.MenuAccueilView;
-//import view.FenetreConnexion;
-//import view.FenetreCreation;
-//import view.FenetreFichePerso;
-//import java.util.List;
-//
-//public class MenuAccueilController {
-//    private MenuAccueilView view;
-//    private Utilisateur utilisateur;
-//    private Compte compte;
-//
-//    public MenuAccueilController(MenuAccueilView view, Utilisateur utilisateur, Compte compte) {
-//        this.view = view;
-//        this.utilisateur = utilisateur;
-//        this.compte = compte;
-//        initController();
-//        loadFichePersonnages();
-//    }
-//
-//    private void initController() {
-//        view.getDeconnexionButton().addActionListener(e -> performLogout());
-//        view.getAjouterFicheButton().addActionListener(e -> addFichePersonnage());
-//    }
-//    private void loadFichePersonnages() {
-//        List<FichePersonnage> fiches = utilisateur.getFichesPersonnages();
-//        view.displayFiches(fiches);
-//    }
-//
-//    private void performLogout() {
-//        System.out.println("Déconnexion en cours");
-//        if (utilisateur != null) {
-//            compte.signOut(utilisateur);
-//        }
-//        JOptionPane.showMessageDialog(view, "Vous êtes maintenant déconnecté.", "Déconnexion", JOptionPane.INFORMATION_MESSAGE);
-//        view.dispose();
-//        new FenetreConnexion().setVisible(true);
-//    }
-//    private void addFichePersonnage() {
-//        FenetreFichePerso fenetre = new FenetreFichePerso(utilisateur, new FichePersonnage());
-//        fenetre.setVisible(true);
-//        fenetre.addWindowListener(new java.awt.event.WindowAdapter() {
-//            @Override
-//            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-//                loadFichePersonnages(); // Recharge les fiches après ajout ou modification
-//            }
-//        });
-//    }
-//}
