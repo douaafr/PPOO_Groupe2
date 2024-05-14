@@ -23,13 +23,22 @@ public class Compte implements Serializable{
         Utilisateur utilisateurExistant = chercherUtilisateur(identifiant);
 
         if (utilisateurExistant == null) {
-            Utilisateur nouvelUtilisateur = new Utilisateur(identifiant, motDePasse);
-            listUtilisateurs.add(nouvelUtilisateur);
-            sauvegarderComptes();
-            return nouvelUtilisateur;
+        	if (!identifiant.isBlank() && !motDePasse.isBlank()) {
+        		Utilisateur nouvelUtilisateur = new Utilisateur(identifiant, motDePasse);
+                listUtilisateurs.add(nouvelUtilisateur);
+                sauvegarderComptes();
+                return nouvelUtilisateur;
+        	} else {
+        		throw new Exception("L'identifiant et/ou le mot de passe ne sont pas saisis");
+        	}
         } else {
             throw new Exception("Un utilisateur avec cet identifiant existe déjà.");
         }
+    }
+    
+    public void deleteAccount(Utilisateur user) {
+    	listUtilisateurs.remove(user);
+    	sauvegarderComptes();
     }
 
 

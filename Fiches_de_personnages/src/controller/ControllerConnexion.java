@@ -57,26 +57,27 @@ public class ControllerConnexion implements ActionListener {
 		        timer.setRepeats(false); // Ne se répète pas
 		        timer.start();
 			} else {
+				// Effacer le contenu des champs de texte
+                identifiantField.setText("");
+                motDePasseField.setText("");
 				MenuAccueilView mav = new MenuAccueilView(user, c);
 				mav.pack();
 				mav.setSize(800, 800);
 				mav.setLocationRelativeTo(null);
 				mav.setResizable(false);
 				mav.setVisible(true);
-				//fc.setVisible(false);
+				fc.setVisible(false);
 			}
 		}
 		
 		if(((JButton)e.getSource()).getText().equals("Créer un compte")) 
 		{
 			FenetreCreation fenCrea = new FenetreCreation(c);
-			//fenCrea.cpt = c;
 			fenCrea.pack();
 			fenCrea.setSize(800, 800);
 			fenCrea.setLocationRelativeTo(null);
 			fenCrea.setResizable(false);
 			fenCrea.setVisible(true);
-			//fc.setVisible(false);
 		}
 	}
 }

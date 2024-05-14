@@ -15,6 +15,7 @@ import java.io.IOException;
 
 public class MenuAccueilView extends JFrame {
     JButton btnChangePassword;
+    JButton btnDeleteAccount;
     JButton btnSignOut;
     JButton btnAddFiche;
     private JList<FichePersonnage> listFiches;
@@ -36,6 +37,7 @@ public class MenuAccueilView extends JFrame {
 
         MenuAccueilController controller = new MenuAccueilController(this, utilisateur, c);
         btnChangePassword.addActionListener(controller);
+        btnDeleteAccount.addActionListener(controller);
         btnSignOut.addActionListener(controller);
         btnAddFiche.addActionListener(controller);
 
@@ -61,7 +63,8 @@ public class MenuAccueilView extends JFrame {
         Color medievalTextColor = new Color(204, 153, 102); // Beige plus foncé
         Font medievalFont = new Font("Times New Roman", Font.BOLD, 20); // Style d'écriture médiéval
 
-        btnChangePassword = new JButton("Modifier le mot de passe");
+        btnChangePassword = new JButton("Modifier mot de passe");
+        btnDeleteAccount = new JButton("Supprimer le compte");
         btnSignOut = new JButton("Se déconnecter");
         btnAddFiche = new JButton("Ajouter une fiche");
         lblUsername = new JLabel(utilisateur.getId());
@@ -84,12 +87,13 @@ public class MenuAccueilView extends JFrame {
         JPanel rightPanel = new JPanel();
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
         rightPanel.setOpaque(false);
+        rightPanel.add(btnAddFiche);
         rightPanel.add(btnChangePassword);
         rightPanel.add(btnSignOut);
 
         JPanel southPanel = new JPanel();
         southPanel.setOpaque(false);
-        southPanel.add(btnAddFiche);
+        southPanel.add(btnDeleteAccount);
 
         topPanel.add(lblUsername, BorderLayout.WEST);
         topPanel.add(rightPanel, BorderLayout.EAST);

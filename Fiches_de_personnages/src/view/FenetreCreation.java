@@ -21,6 +21,7 @@ public class FenetreCreation extends JFrame {
 	JLabel motDePasseLabel = new JLabel("Mot de passe:");
 	JButton creationCPTButton = new JButton("S'inscrire");
 	JPanel panelConnexion = new JPanel();
+	JPanel panelMessage = new JPanel();
     
 	public FenetreCreation(Compte c) {
 		this.cpt = c;
@@ -105,13 +106,25 @@ public class FenetreCreation extends JFrame {
         panelConnexion.setVisible(false); // Masquer le panel au début
         contentPane.add(panelConnexion);
         
-        JLabel lblNewLabel = new JLabel("Utilisateur déjà existant");
+        JLabel lblNewLabel = new JLabel("Cet identifiant existe déjà");
         panelConnexion.add(lblNewLabel);
         lblNewLabel.setForeground(new Color(255, 69, 0));
         lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 18));
         
+        // A afficher si au moins l'un des champs est vide
+        panelMessage.setOpaque(false);
+        panelMessage.setBounds(216, 586, 327, 38);
+        panelMessage.setVisible(false); // Masquer le panel au début
+        contentPane.add(panelMessage);
+        
+        JLabel lblNewLabelMessage = new JLabel("Les champs ne peuvent pas être vides");
+        panelMessage.add(lblNewLabelMessage);
+        lblNewLabelMessage.setForeground(new Color(255, 69, 0));
+        lblNewLabelMessage.setFont(new Font("Times New Roman", Font.BOLD, 18));
+        
+        
         //creation d'une instance de gestion d'evenement
-        ControllerCreation controller = new ControllerCreation(this, identifiantField, motDePasseField, panelConnexion, cpt);
+        ControllerCreation controller = new ControllerCreation(this, identifiantField, motDePasseField, panelConnexion, panelMessage, cpt);
         
         //association avec les boutons
       	creationCPTButton.addActionListener(controller);

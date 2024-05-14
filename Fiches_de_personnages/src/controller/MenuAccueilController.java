@@ -100,6 +100,9 @@ public class MenuAccueilController implements ActionListener {
             fenetreFichePerso.setLocationRelativeTo(null);
             fenetreFichePerso.setResizable(false);
             fenetreFichePerso.setVisible(true);
+        } else if (source.getText().equals("Supprimer le compte")) {
+        	compte.deleteAccount(utilisateur);
+        	view.setVisible(false);
         }
     }
 }
