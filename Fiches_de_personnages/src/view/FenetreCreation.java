@@ -14,7 +14,7 @@ public class FenetreCreation extends JFrame {
 	
 	public Compte cpt;
 	BufferedImage backgroundImage;
-	JLabel bienvenueLabel = new JLabel("Bienvenue");
+	JLabel bienvenueLabel = new JLabel("Création compte");
 	JTextField identifiantField = new JTextField(20);
 	JPasswordField motDePasseField = new JPasswordField(20);
 	JLabel identifiantLabel = new JLabel("Identifiant:");
@@ -77,7 +77,7 @@ public class FenetreCreation extends JFrame {
         contentPane.setLayout(null);
         
         // Ajout des éléments à l'interface utilisateur
-        bienvenueLabel.setBounds(298, 298, 180, 82); // Position et taille de JLabel "Bienvenue"
+        bienvenueLabel.setBounds(238, 298, 350, 82); // Position et taille de JLabel "Bienvenue"
         contentPane.add(bienvenueLabel);
         
         //identifiantLabel.setForeground(new Color(139, 69, 19));

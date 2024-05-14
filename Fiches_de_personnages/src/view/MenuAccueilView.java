@@ -7,6 +7,8 @@ import model.FichePersonnage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -61,7 +63,7 @@ public class MenuAccueilView extends JFrame {
 
     private void initializeComponents() {
         // Définir la couleur et le style d'écriture pour le thème médiéval
-        Color medievalTextColor = new Color(204, 153, 102); // Beige plus foncé
+        Color medievalTextColor = new Color(182, 133, 92); // Beige plus foncé
         Font medievalFont = new Font("Times New Roman", Font.BOLD, 20); // Style d'écriture médiéval
 
         btnChangePassword = new JButton("Modifier mot de passe");
@@ -149,15 +151,26 @@ public class MenuAccueilView extends JFrame {
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
                                                       boolean cellHasFocus) {
+            JPanel panel = new JPanel(new BorderLayout());
+            JLabel label = new JLabel();
+
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (value instanceof FichePersonnage) {
                 FichePersonnage fichePersonnage = (FichePersonnage) value;
-                setText(fichePersonnage.getName()); // Afficher le nom de la fiche personnage
-                setFont(new Font("Times New Roman", Font.BOLD, 24)); // Définir une police plus grande
-                setForeground(new Color(204, 153, 102)); // Définir la couleur du texte (beige plus foncé)
+                label.setText(fichePersonnage.getName());
+                label.setFont(new Font("Times New Roman", Font.BOLD, 18));
+                label.setForeground(new Color(224, 183, 132));
+                panel.add(label, BorderLayout.CENTER);
+
+                // Ajouter un séparateur en bas sauf pour le dernier élément
+                if (index < list.getModel().getSize() - 1) {
+                    JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
+                    panel.add(separator, BorderLayout.SOUTH);
+                }
             }
-            setOpaque(isSelected); // Rendre transparent sauf lors de la sélection
-            return this;
+            panel.setOpaque(isSelected);
+            return panel;
         }
     }
+
 }
