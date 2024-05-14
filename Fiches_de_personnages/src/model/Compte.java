@@ -110,12 +110,7 @@ public class Compte implements Serializable{
     
     public boolean changePwd(String oldPwd, String newPwd, Utilisateur utilisateur) {
       if (utilisateur.mdpCorrect(oldPwd)) { 
-    	  System.out.println("mdpCorrect");
-    	  System.out.println ("Ancien mdp : " + oldPwd);
-    	  System.out.println(utilisateur.password);
           utilisateur.password = utilisateur.hashPassword(newPwd);
-          System.out.println();
-          System.out.println(utilisateur.password);
           sauvegarderComptes();
           return true;
       } else {
