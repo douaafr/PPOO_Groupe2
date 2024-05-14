@@ -75,7 +75,7 @@ public class ControllerPassword implements ActionListener {
 //				mav.setLocationRelativeTo(null);
 //				mav.setResizable(false);
 //				mav.setVisible(true);
-				fc.setVisible(false);
+				fc.dispose();
 				
 			}
 

@@ -146,7 +146,7 @@ public class ControllerFichePerso {
 
             JOptionPane.showMessageDialog(view, "Données sauvegardées !");
             mAV.updateFicheList();
-            view.setVisible(false);
+            view.dispose();
         }
     }
 }
