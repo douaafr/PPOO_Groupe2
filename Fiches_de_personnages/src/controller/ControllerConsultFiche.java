@@ -149,7 +149,7 @@ public class ControllerConsultFiche {
 
             JOptionPane.showMessageDialog(view, "Données sauvegardées !");
             mAV.updateFicheList();
-            view.setVisible(false);
+            view.dispose();
         }
     }
 }
