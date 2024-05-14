@@ -27,7 +27,7 @@ public class FenetreConnexion extends JFrame {
 		this.cpt = c;
 		// Initialisation de la fenêtre
 		this.setTitle("Bienvenue");
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // Charger l'image de fond
         try {
