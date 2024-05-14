@@ -67,7 +67,7 @@ public class MenuAccueilView extends JFrame {
         btnDeleteAccount = new JButton("Supprimer le compte");
         btnSignOut = new JButton("Se déconnecter");
         btnAddFiche = new JButton("Ajouter une fiche");
-        lblUsername = new JLabel(utilisateur.getId());
+        lblUsername = new JLabel("Utilisateur : "+utilisateur.getId());
         lblUsername.setForeground(medievalTextColor);
         lblUsername.setFont(medievalFont);
         listModel = new DefaultListModel<>();

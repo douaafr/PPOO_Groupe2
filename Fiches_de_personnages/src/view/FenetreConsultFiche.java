@@ -174,27 +174,35 @@ public class FenetreConsultFiche extends JFrame {
     }
 
     private void setupStatsTable() {
-        DefaultTableModel model = new DefaultTableModel(new Object[][]{}, new String[]{"Statistique", "Valeur"}) {
+        DefaultTableModel model = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 1;
+                return true; // Permet l'édition de toutes les cellules
             }
-            
+
             @Override
             public void setValueAt(Object aValue, int row, int column) {
-            	if (column == 1) {
-            		try {
-            			int newValue = Integer.parseInt(aValue.toString());
-            			super.setValueAt(newValue, row, column); // Met à jour la vue seulement si la conversion est réussie
-            			fichePersonnage.getStatistiques().get(row).setValue(newValue); // Met à jour le modèle
-            		} catch (NumberFormatException e) {
-            			JOptionPane.showMessageDialog(null, "La valeur ne peut être modifiée. Veuillez entrer un nombre valide.");
-            		}
-            	} else {
-            		super.setValueAt(aValue, row, column); // Pour toutes les autres colonnes, permettre la modification normale.
-            	}
+                // Détermination de la colonne et mise à jour appropriée
+                if (column == 0) { // Nom de la statistique
+                    String newName = aValue.toString().trim();
+                    if (!newName.isEmpty()) {
+                        super.setValueAt(newName, row, column);
+                        fichePersonnage.getStatistiques().get(row).setName(newName);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Le nom de la statistique ne peut pas être vide.");
+                    }
+                } else if (column == 1) { // Valeur de la statistique
+                    try {
+                        int newValue = Integer.parseInt(aValue.toString());
+                        super.setValueAt(newValue, row, column);
+                        fichePersonnage.getStatistiques().get(row).setValue(newValue);
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "La valeur doit être un nombre entier valide.");
+                    }
+                }
             }
         };
+        model.setColumnIdentifiers(new String[]{"Statistique", "Valeur"});
         statsTable.setModel(model);
         JPopupMenu popupMenu = createPopupMenu(statsTable, true);
         statsTable.setComponentPopupMenu(popupMenu);

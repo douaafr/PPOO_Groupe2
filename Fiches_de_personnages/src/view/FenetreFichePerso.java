@@ -176,22 +176,28 @@ public class FenetreFichePerso extends JFrame {
         DefaultTableModel model = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 1;
+                return true; // Permet l'édition de toutes les cellules
             }
-            
+
             @Override
             public void setValueAt(Object aValue, int row, int column) {
-            	if (column == 1) {
-            		try {
-            			int newValue = Integer.parseInt(aValue.toString());
-            			super.setValueAt(newValue, row, column); // Met à jour la vue seulement si la conversion est réussie
-            			fichePersonnage.getStatistiques().get(row).setValue(newValue); // Met à jour le modèle
-            		} catch (NumberFormatException e) {
-            			JOptionPane.showMessageDialog(null, "La valeur ne peut être modifiée. Veuillez entrer un nombre valide.");
-            		}
-            	} else {
-            		super.setValueAt(aValue, row, column); // Pour toutes les autres colonnes, permettre la modification normale.
-            	}
+            	if (column == 0) {
+                    String newName = aValue.toString();
+                    if (!newName.trim().isEmpty()) {
+                        super.setValueAt(newName, row, column); // Met à jour la vue
+                        fichePersonnage.getStatistiques().get(row).setName(newName); // Met à jour le modèle
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Le nom de la statistique ne peut pas être vide.");
+                    }
+                } else if (column == 1) {
+                    try {
+                        int newValue = Integer.parseInt(aValue.toString());
+                        super.setValueAt(newValue, row, column); // Met à jour la vue
+                        fichePersonnage.getStatistiques().get(row).setValue(newValue); // Met à jour le modèle
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "La valeur doit être un nombre entier valide.");
+                    }
+                } 
             }
         };
         model.setColumnIdentifiers(new String[]{"Statistique", "Valeur"});

@@ -14,7 +14,6 @@ import model.Utilisateur;
 public class MenuAccueilController implements ActionListener {
     MenuAccueilView view;
     Utilisateur utilisateur;
-    //Compte compte = new Compte();
     Compte compte;
     JPopupMenu popupMenu;
     JMenuItem consultMenuItem;
@@ -74,7 +73,7 @@ public class MenuAccueilController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton source = (JButton) e.getSource();
 
-        if (source.getText().equals("Modifier le mot de passe")) {
+        if (source.getText().equals("Modifier mot de passe")) {
             FenetrePassword fenetrePassword = new FenetrePassword(utilisateur,compte);
             fenetrePassword.pack();
             fenetrePassword.setSize(800, 800);
@@ -85,11 +84,6 @@ public class MenuAccueilController implements ActionListener {
             // Appelle la méthode de déconnexion du modèle Utilisateur
             compte.signOut(utilisateur); // Assurez-vous que cette méthode gère la déconnexion correctement
             FenetreConnexion fenetreConnexion = new FenetreConnexion(compte);
-            fenetreConnexion.pack();
-            fenetreConnexion.setSize(800, 800);
-            fenetreConnexion.setLocationRelativeTo(null);
-            fenetreConnexion.setResizable(false);
-            fenetreConnexion.setVisible(true); // Ou ouvrir la FenetreConnexion si vous souhaitez revenir à l'écran de connexion
             view.dispose(); // Fermer la fenêtre actuelle
         } else if (source.getText().equals("Ajouter une fiche")) {
             FichePersonnage fichePersonnage = new FichePersonnage(utilisateur.getFichesPersonnages().size() + 1);
@@ -101,8 +95,19 @@ public class MenuAccueilController implements ActionListener {
             fenetreFichePerso.setResizable(false);
             fenetreFichePerso.setVisible(true);
         } else if (source.getText().equals("Supprimer le compte")) {
-        	compte.deleteAccount(utilisateur);
-        	view.setVisible(false);
+            UIManager.put("OptionPane.yesButtonText", "Oui");
+            UIManager.put("OptionPane.noButtonText", "Non");
+            UIManager.put("OptionPane.messageDialogTitle", "Confirmation");
+            int confirm = JOptionPane.showConfirmDialog(view, "Êtes-vous sûr de vouloir supprimer ce compte ?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+            	if (utilisateur.getFichesPersonnages() != null && !utilisateur.getFichesPersonnages().isEmpty()) {
+            		for (FichePersonnage fiche : utilisateur.getFichesPersonnages()) {
+            			utilisateur.deleteFiche(fiche.idFiche);
+            		}
+            	}
+            	compte.deleteAccount(utilisateur);
+            	view.dispose();
+            }
         }
     }
 }
