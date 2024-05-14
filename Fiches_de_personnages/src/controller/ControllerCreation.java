@@ -15,22 +15,24 @@ import view.MenuAccueilView;
 public class ControllerCreation implements ActionListener {
 
 	FenetreCreation fc;
-	Compte c = new Compte();
+	//Compte c = new Compte();
+	Compte c;
 	JTextField identifiantField;
 	JPasswordField motDePasseField;
 	JPanel panel;
 	
-	public ControllerCreation(FenetreCreation f, JTextField id, JPasswordField pwd, JPanel p) {
+	public ControllerCreation(FenetreCreation f, JTextField id, JPasswordField pwd, JPanel p, Compte c) {
 		this.fc = f;
 		this.identifiantField = id;
 		this.motDePasseField = pwd;
 		this.panel = p;
+		this.c = c;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(((JButton)e.getSource()).getText().equals("S'inscrire")) 
 		{
-			fc.cpt = c; 
+			//fc.cpt = c; 
 			String identifiant = identifiantField.getText();
 			char[] mdpChars = motDePasseField.getPassword();
 			String motDePasse = new String(mdpChars);
@@ -64,7 +66,7 @@ public class ControllerCreation implements ActionListener {
 		        timer.setRepeats(false); // Ne se répète pas
 		        timer.start();
 			} else {
-				FenetreConnexion mav = new FenetreConnexion();
+				FenetreConnexion mav = new FenetreConnexion(c);
 				mav.pack();
 				mav.setSize(800, 800);
 				mav.setLocationRelativeTo(null);

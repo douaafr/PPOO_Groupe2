@@ -2,6 +2,7 @@ package view;
 
 import controller.MenuAccueilController;
 import model.Utilisateur;
+import model.Compte;
 import model.FichePersonnage;
 
 import javax.imageio.ImageIO;
@@ -20,9 +21,11 @@ public class MenuAccueilView extends JFrame {
     private DefaultListModel<FichePersonnage> listModel;
     private JLabel lblUsername;
     public Utilisateur utilisateur;
+    public Compte c;
 
-    public MenuAccueilView(Utilisateur utilisateur) {
+    public MenuAccueilView(Utilisateur utilisateur, Compte c) {
         this.utilisateur = utilisateur;
+        this.c = c;
         initializeComponents();
         layoutComponents();
         setTitle("Menu d'Accueil");
@@ -31,7 +34,7 @@ public class MenuAccueilView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        MenuAccueilController controller = new MenuAccueilController(this, utilisateur);
+        MenuAccueilController controller = new MenuAccueilController(this, utilisateur, c);
         btnChangePassword.addActionListener(controller);
         btnSignOut.addActionListener(controller);
         btnAddFiche.addActionListener(controller);

@@ -30,7 +30,9 @@ public class FenetrePassword extends JFrame {
 	JButton confirmBoutton = new JButton("Confirmer");
 	JPanel panelInfo = new JPanel();
 
-	public FenetrePassword() {
+	public FenetrePassword(Utilisateur user, Compte cpt) {
+		this.user = user;
+		this.cpt = cpt;
 		// Initialisation de la fenêtre
 		this.setTitle("Informations compte");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -118,12 +120,12 @@ public class FenetrePassword extends JFrame {
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 18));
 
 		
-		ControllerPassword controller = new ControllerPassword (this, oldPwdField, newPwdField, panelInfo);
+		ControllerPassword controller = new ControllerPassword (this, oldPwdField, newPwdField, panelInfo,user, cpt);
 		
 		confirmBoutton.addActionListener(controller);
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		FenetrePassword frame = new FenetrePassword();
 		frame.pack();
 		frame.setSize(800, 800); // Définir la taille souhaitée ou utiliser frame.pack() pour ajuster en fonction
@@ -131,7 +133,7 @@ public class FenetrePassword extends JFrame {
 		frame.setLocationRelativeTo(null); // Centrer la fenêtre sur l'écran
 		frame.setResizable(false); // Rendre la fenêtre non redimensionnable
 		frame.setVisible(true); // Rendre la fenêtre visible
-	}
+	}*/
 
 	
 }

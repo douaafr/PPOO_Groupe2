@@ -22,7 +22,8 @@ public class FenetreCreation extends JFrame {
 	JButton creationCPTButton = new JButton("S'inscrire");
 	JPanel panelConnexion = new JPanel();
     
-	public FenetreCreation() {
+	public FenetreCreation(Compte c) {
+		this.cpt = c;
 		// Initialisation de la fenêtre
 		this.setTitle("Bienvenue");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -110,7 +111,7 @@ public class FenetreCreation extends JFrame {
         lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 18));
         
         //creation d'une instance de gestion d'evenement
-        ControllerCreation controller = new ControllerCreation(this, identifiantField, motDePasseField, panelConnexion);
+        ControllerCreation controller = new ControllerCreation(this, identifiantField, motDePasseField, panelConnexion, cpt);
         
         //association avec les boutons
       	creationCPTButton.addActionListener(controller);

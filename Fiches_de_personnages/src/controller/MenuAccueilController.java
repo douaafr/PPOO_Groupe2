@@ -14,14 +14,16 @@ import model.Utilisateur;
 public class MenuAccueilController implements ActionListener {
     MenuAccueilView view;
     Utilisateur utilisateur;
-    Compte compte = new Compte();
+    //Compte compte = new Compte();
+    Compte compte;
     JPopupMenu popupMenu;
     JMenuItem consultMenuItem;
     JMenuItem deleteMenuItem;
 
-    public MenuAccueilController(MenuAccueilView view, Utilisateur utilisateur) {
+    public MenuAccueilController(MenuAccueilView view, Utilisateur utilisateur, Compte c) {
         this.view = view;
         this.utilisateur = utilisateur;
+        this.compte = c;
         createPopupMenu();
     }
 
@@ -73,7 +75,7 @@ public class MenuAccueilController implements ActionListener {
         JButton source = (JButton) e.getSource();
 
         if (source.getText().equals("Modifier le mot de passe")) {
-            FenetrePassword fenetrePassword = new FenetrePassword();
+            FenetrePassword fenetrePassword = new FenetrePassword(utilisateur,compte);
             fenetrePassword.pack();
             fenetrePassword.setSize(800, 800);
             fenetrePassword.setLocationRelativeTo(null);
@@ -82,7 +84,7 @@ public class MenuAccueilController implements ActionListener {
         } else if (source.getText().equals("Se déconnecter")) {
             // Appelle la méthode de déconnexion du modèle Utilisateur
             compte.signOut(utilisateur); // Assurez-vous que cette méthode gère la déconnexion correctement
-            FenetreConnexion fenetreConnexion = new FenetreConnexion();
+            FenetreConnexion fenetreConnexion = new FenetreConnexion(compte);
             fenetreConnexion.pack();
             fenetreConnexion.setSize(800, 800);
             fenetreConnexion.setLocationRelativeTo(null);

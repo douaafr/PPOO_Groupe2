@@ -13,22 +13,23 @@ import model.Utilisateur;
 public class ControllerConnexion implements ActionListener {
 	
 	FenetreConnexion fc;
-	Compte c = new Compte();
+	Compte c;
 	JTextField identifiantField;
 	JPasswordField motDePasseField;
 	JPanel panel;
 	
-	public ControllerConnexion(FenetreConnexion f, JTextField id, JPasswordField pwd, JPanel p) {
+	public ControllerConnexion(FenetreConnexion f, JTextField id, JPasswordField pwd, JPanel p, Compte c) {
 		this.fc = f;
 		this.identifiantField = id;
 		this.motDePasseField = pwd;
 		this.panel = p;
+		this.c = c;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(((JButton)e.getSource()).getText().equals("Se connecter")) 
 		{
-			fc.cpt = c; 
+			//fc.cpt = c; 
 			String identifiant = identifiantField.getText();
 			char[] mdpChars = motDePasseField.getPassword();
 			String motDePasse = new String(mdpChars);
@@ -56,7 +57,7 @@ public class ControllerConnexion implements ActionListener {
 		        timer.setRepeats(false); // Ne se répète pas
 		        timer.start();
 			} else {
-				MenuAccueilView mav = new MenuAccueilView(user);
+				MenuAccueilView mav = new MenuAccueilView(user, c);
 				mav.pack();
 				mav.setSize(800, 800);
 				mav.setLocationRelativeTo(null);
@@ -68,8 +69,8 @@ public class ControllerConnexion implements ActionListener {
 		
 		if(((JButton)e.getSource()).getText().equals("Créer un compte")) 
 		{
-			FenetreCreation fenCrea = new FenetreCreation();
-			fenCrea.cpt = c;
+			FenetreCreation fenCrea = new FenetreCreation(c);
+			//fenCrea.cpt = c;
 			fenCrea.pack();
 			fenCrea.setSize(800, 800);
 			fenCrea.setLocationRelativeTo(null);

@@ -17,8 +17,8 @@ public class Utilisateur implements Serializable{
     public Utilisateur() {
     }
     
-    private String password;
-    private String id_account;
+     public String password;
+     public String id_account;
     private File ficheFile; // Transient pour exclure de la sérialisation
 
     /**
@@ -26,6 +26,7 @@ public class Utilisateur implements Serializable{
      */
     
     public Utilisateur(String identifiant, String mdp) {
+    	//this.compte = compte;
         this.id_account = identifiant;
         this.password = hashPassword(mdp);
         this.ficheFile = new File("fiches_" + id_account + ".ser"); // Fichier unique par utilisateur
@@ -57,7 +58,7 @@ public class Utilisateur implements Serializable{
         }
     }
 
-    public Compte compte;
+    public Compte compte = new Compte();
     public void setCompte (Compte compte_c) {
     	compte = compte_c;
     }
@@ -79,15 +80,14 @@ public class Utilisateur implements Serializable{
         
         
     }
-    public Utilisateur changePwd(String oldPwd, String newPwd) {
-        if (mdpCorrect(oldPwd)) { 
-            this.password = hashPassword(newPwd);
-            compte.sauvegarderComptes();
-            return this;
-        } else {
-            throw new IllegalArgumentException("L'ancien mot de passe est incorrect.");
-        }
-    }
+//    public void changePwd(String oldPwd, String newPwd) {
+//        if (mdpCorrect(oldPwd)) { 
+//            this.password = hashPassword(newPwd);
+//            compte.sauvegarderComptes();
+//        } else {
+//            throw new IllegalArgumentException("L'ancien mot de passe est incorrect.");
+//        }
+//    }
     
     public boolean mdpCorrect(String mdp) {
         return BCrypt.checkpw(mdp, this.password);
@@ -130,7 +130,7 @@ public class Utilisateur implements Serializable{
     }
     
     
-    private String hashPassword(String plainTextPassword) {
+    public String hashPassword(String plainTextPassword) {
         return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
     }
     
