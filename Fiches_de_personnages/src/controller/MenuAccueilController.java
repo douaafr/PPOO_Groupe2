@@ -12,6 +12,7 @@ import model.FichePersonnage;
 import model.Utilisateur;
 
 public class MenuAccueilController implements ActionListener {
+	
     MenuAccueilView view;
     Utilisateur utilisateur;
     Compte compte;

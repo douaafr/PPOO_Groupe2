@@ -17,7 +17,8 @@ import model.Utilisateur;
 import controller.ControllerConsultFiche;
 
 public class FenetreConsultFiche extends JFrame {
-
+	
+	
 	private MenuAccueilView mAV;
 	private Utilisateur utilisateur;
 	private FichePersonnage fichePersonnage;

@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class MenuAccueilView extends JFrame {
+	
     JButton btnChangePassword;
     JButton btnDeleteAccount;
     JButton btnSignOut;

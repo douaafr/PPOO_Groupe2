@@ -15,6 +15,7 @@ import java.io.File;
 
 public class ControllerConsultFiche {
 	
+	
 	private Utilisateur utilisateur;
 	private FichePersonnage fiche;
     private FenetreConsultFiche view;

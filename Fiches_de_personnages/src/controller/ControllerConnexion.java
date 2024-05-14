@@ -12,6 +12,7 @@ import model.Utilisateur;
 
 public class ControllerConnexion implements ActionListener {
 	
+	
 	FenetreConnexion fc;
 	Compte c;
 	JTextField identifiantField;
