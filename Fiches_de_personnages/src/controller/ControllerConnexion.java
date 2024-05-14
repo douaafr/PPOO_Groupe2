@@ -63,7 +63,7 @@ public class ControllerConnexion implements ActionListener {
 				mav.setLocationRelativeTo(null);
 				mav.setResizable(false);
 				mav.setVisible(true);
-				fc.setVisible(false);
+				//fc.setVisible(false);
 			}
 		}
 		
@@ -76,7 +76,7 @@ public class ControllerConnexion implements ActionListener {
 			fenCrea.setLocationRelativeTo(null);
 			fenCrea.setResizable(false);
 			fenCrea.setVisible(true);
-			fc.setVisible(false);
+			//fc.setVisible(false);
 		}
 	}
 }

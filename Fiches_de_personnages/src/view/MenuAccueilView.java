@@ -31,7 +31,7 @@ public class MenuAccueilView extends JFrame {
         setTitle("Menu d'Accueil");
         setSize(800, 800);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
 
         MenuAccueilController controller = new MenuAccueilController(this, utilisateur, c);

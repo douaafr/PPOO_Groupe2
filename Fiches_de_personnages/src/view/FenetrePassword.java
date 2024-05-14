@@ -35,7 +35,7 @@ public class FenetrePassword extends JFrame {
 		this.cpt = cpt;
 		// Initialisation de la fenêtre
 		this.setTitle("Informations compte");
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		// Charger l'image de fond
 		try {

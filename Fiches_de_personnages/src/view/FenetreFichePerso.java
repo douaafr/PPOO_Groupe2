@@ -44,7 +44,7 @@ public class FenetreFichePerso extends JFrame {
     private void initUI() {
         setTitle("Fiche Personnage");
         setSize(1155, 800);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
 
         // Panneau pour le portrait et le bouton changer portrait 
