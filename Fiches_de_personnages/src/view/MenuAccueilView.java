@@ -151,25 +151,20 @@ public class MenuAccueilView extends JFrame {
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
                                                       boolean cellHasFocus) {
-            JPanel panel = new JPanel(new BorderLayout());
             JLabel label = new JLabel();
+            label.setOpaque(true);
+            label.setBorder(new EmptyBorder(10, 10, 10, 10));
+            label.setFont(new Font("Times New Roman", Font.BOLD, 18));
+            label.setForeground(new Color(224, 183, 132));
 
-            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (value instanceof FichePersonnage) {
-                FichePersonnage fichePersonnage = (FichePersonnage) value;
-                label.setText(fichePersonnage.getName());
-                label.setFont(new Font("Times New Roman", Font.BOLD, 18));
-                label.setForeground(new Color(224, 183, 132));
-                panel.add(label, BorderLayout.CENTER);
-
-                // Ajouter un séparateur en bas sauf pour le dernier élément
-                if (index < list.getModel().getSize() - 1) {
-                    JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
-                    panel.add(separator, BorderLayout.SOUTH);
-                }
+                FichePersonnage fiche = (FichePersonnage) value;
+                label.setText(fiche.getName());
+                ImageIcon icon = new ImageIcon(new File(fiche.getPortrait().getPath()).exists() ? fiche.getPortrait().getPath() : "resources/portrait_par_defaut.png");
+                label.setIcon(new ImageIcon(icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH))); 
             }
-            panel.setOpaque(isSelected);
-            return panel;
+            label.setOpaque(isSelected);
+            return label;
         }
     }
 
