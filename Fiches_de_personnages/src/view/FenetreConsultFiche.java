@@ -45,7 +45,7 @@ public class FenetreConsultFiche extends JFrame {
 
     private void initUI() {
         setTitle("Consultation Fiche Personnage");
-        setSize(1155, 800);
+        setSize(1160, 800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());

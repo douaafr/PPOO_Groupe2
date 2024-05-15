@@ -38,7 +38,7 @@ public class MenuAccueilController implements ActionListener {
                 FenetreConsultFiche consultFiche = new FenetreConsultFiche(utilisateur, selectedFiche, view);
                 consultFiche.setController();
                 consultFiche.pack();
-        		consultFiche.setSize(1155, 800);
+        		consultFiche.setSize(1160, 800);
         		consultFiche.setLocationRelativeTo(null);
         		consultFiche.setResizable(false);
         		consultFiche.setVisible(true);
@@ -91,7 +91,7 @@ public class MenuAccueilController implements ActionListener {
             FenetreFichePerso fenetreFichePerso = new FenetreFichePerso(utilisateur, fichePersonnage, view);
             fenetreFichePerso.setController();
             fenetreFichePerso.pack();
-            fenetreFichePerso.setSize(1155, 800);
+            fenetreFichePerso.setSize(1160, 800);
             fenetreFichePerso.setLocationRelativeTo(null);
             fenetreFichePerso.setResizable(false);
             fenetreFichePerso.setVisible(true);
