@@ -2,7 +2,10 @@ package view;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -64,11 +67,11 @@ public class FenetreFichePerso extends JFrame {
         nameField = new JTextField(20);
         ageField = new JTextField(5);
         pvField = new JTextField(5); 
-        namePanel.add(new JLabel("Nom *:"));
+        namePanel.add(new JLabel("Nom * :"));
         namePanel.add(nameField);
-        namePanel.add(new JLabel("Âge *:"));
+        namePanel.add(new JLabel("Âge * :"));
         namePanel.add(ageField);
-        namePanel.add(new JLabel("Points de Vie *:"));
+        namePanel.add(new JLabel("Points de Vie * :"));
         namePanel.add(pvField);
         topPanel.add(namePanel, BorderLayout.CENTER);
 
@@ -279,7 +282,9 @@ public class FenetreFichePerso extends JFrame {
 
     public void setPortrait(String imagePath) {
         if (imagePath != null) {
-            portraitLabel.setIcon(new ImageIcon(imagePath));
+         // Appel à la méthode resizeIcon pour redimensionner l'image avant de l'affecter au JLabel
+            ImageIcon resizedIcon = resizeIcon(fichePersonnage.getPortrait().getPath());
+            portraitLabel.setIcon(resizedIcon);
         }
     }
     
@@ -329,12 +334,40 @@ public class FenetreFichePerso extends JFrame {
 
     private void updatePortrait() {
         if (fichePersonnage.getPortrait() != null) {
-            portraitLabel.setIcon(new ImageIcon(fichePersonnage.getPortrait().getPath()));
+            // Appel à la méthode resizeIcon pour redimensionner l'image avant de l'affecter au JLabel
+            ImageIcon resizedIcon = resizeIcon(fichePersonnage.getPortrait().getPath());
+            portraitLabel.setIcon(resizedIcon);
+        }
+    }
+
+    private ImageIcon resizeIcon(String imagePath) {
+        try {
+            // Charge l'image originale à partir du chemin du fichier
+            BufferedImage originalImage = ImageIO.read(new File(imagePath));
+
+            // Crée une nouvelle image tamponnée pour le dessin avec une transparence
+            BufferedImage resizedImage = new BufferedImage(250, 250, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = resizedImage.createGraphics();
+
+            // Améliore la qualité du redimensionnement
+            g2.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION, java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            g2.setRenderingHint(java.awt.RenderingHints.KEY_RENDERING, java.awt.RenderingHints.VALUE_RENDER_QUALITY);
+            g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+
+            // Dessine l'image originale redimensionnée dans la nouvelle image tamponnée
+            g2.drawImage(originalImage, 0, 0, 250, 250, null);
+            g2.dispose();
+
+            // Convertit la BufferedImage redimensionnée en ImageIcon pour l'utiliser dans un JLabel
+            return new ImageIcon(resizedImage);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
     
     public void setController() {
-    	ControllerFichePerso controller = new ControllerFichePerso(this.utilisateur, this.fichePersonnage, this, mAV);
+    	new ControllerFichePerso(this.utilisateur, this.fichePersonnage, this, mAV);
     }
 
 //    public static void main(String[] args) throws Exception {
